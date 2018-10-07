@@ -24,6 +24,7 @@ class TodoListService {
       'FIREBASE_DATABASE_URL',
       'FIREBASE_STORAGE_BUCKET',
       'FIREBASE_PROJECT_ID',
+      'FIREBASE_MESSAGE_SENDER_ID',
       ]);
 
     try {
@@ -32,7 +33,9 @@ class TodoListService {
           authDomain: env['FIREBASE_AUTH_DOMAIN'],
           databaseURL: env['FIREBASE_DATABASE_URL'],
           storageBucket: env['FIREBASE_STORAGE_BUCKET'],
-          projectId: env['FIREBASE_PROJECT_ID']);
+          projectId: env['FIREBASE_PROJECT_ID'],
+          messagingSenderId: env['FIREBASE_MESSAGE_SENDER_ID'],
+          );
 
       // MessagesApp().showMessages();
     } on fb.FirebaseJsNotLoadedException catch (e) {
