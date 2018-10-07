@@ -5,8 +5,6 @@ import 'package:angular/core.dart';
 import 'package:firebase/firebase.dart' as fb;
 import 'package:firebase/firestore.dart';
 
-import 'package:dotenv/dotenv.dart' show load, clean, isEveryDefined, env;
-
 /// Mock service emulating access to a to-do list stored on a server.
 @Injectable()
 class TodoListService {
@@ -14,32 +12,25 @@ class TodoListService {
 
   Future<List<String>> getTodoList() async => mockTodoList;
 
-  test() async {
-
-    load();
-
-    isEveryDefined([
-      'FIREBASE_API_KEY',
-      'FIREBASE_AUTH_DOMAIN',
-      'FIREBASE_DATABASE_URL',
-      'FIREBASE_STORAGE_BUCKET',
-      'FIREBASE_PROJECT_ID',
-      'FIREBASE_MESSAGE_SENDER_ID',
-      ]);
-
+  TodoListService() {
     try {
       fb.initializeApp(
-          apiKey: env['FIREBASE_API_KEY'],
-          authDomain: env['FIREBASE_AUTH_DOMAIN'],
-          databaseURL: env['FIREBASE_DATABASE_URL'],
-          storageBucket: env['FIREBASE_STORAGE_BUCKET'],
-          projectId: env['FIREBASE_PROJECT_ID'],
-          messagingSenderId: env['FIREBASE_MESSAGE_SENDER_ID'],
+          apiKey: "AIzaSyBxFVTF94tdRPW9QFIAi7oPVun__AbPYVo",
+          authDomain: "nhlapp-8ad23.firebaseapp.com",
+          databaseURL: "https://nhlapp-8ad23.firebaseio.com",
+          storageBucket: "nhlapp-8ad23.appspot.com",
+          projectId: "nhlapp-8ad23",
+          messagingSenderId: "1021216818424"
           );
 
       // MessagesApp().showMessages();
     } on fb.FirebaseJsNotLoadedException catch (e) {
       print(e);
     }
+  }
+
+  Stream<QuerySnapshot> test() {
+
+    return fb.firestore().collection('todos').get().asStream();
   }
 }
