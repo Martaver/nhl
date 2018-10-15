@@ -13,30 +13,19 @@
   </material-fab>
 </div>
 
-<p *ngIf="items.isEmpty">
+<p *ngIf="(todos | async)?.isEmpty">
   Nothing to do! Add items above.
 </p>
 
-<div *ngIf="items.isNotEmpty">
-  <ul>
-      <li *ngFor="let item of items; let i=index">
-        <material-checkbox #done materialTooltip="Mark item as done">
-        </material-checkbox>
-        <span [class.done]="done.checked">{{item}}</span>
-        <material-fab mini (trigger)="remove(i)">
-          <material-icon icon="delete"></material-icon>
-        </material-fab>
-      </li>
-  </ul>
-</div>
-
 <ul>
-  <li *ngFor="let item of todos | async; let i=index">
-    <material-checkbox #done materialTooltip="Mark item as done">
-    </material-checkbox>
-    <span [class.done]="done.checked">{{item.message}}</span>
-    <material-fab mini (trigger)="remove(i)">
-      <material-icon icon="delete"></material-icon>
-    </material-fab>
-  </li>
-</ul>
+    <li *ngFor="let item of todos | async">
+      <material-checkbox #done materialTooltip="Mark item as done">
+      </material-checkbox>
+      <span [class.done]="done.checked">{{item.message}}</span>
+      <material-fab mini (trigger)="remove(item.id)">
+        <material-icon icon="delete"></material-icon>
+      </material-fab>
+    </li>
+  </ul>
+
+

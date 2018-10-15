@@ -3,16 +3,10 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:firebase/src/firestore.dart';
+import 'package:nhl/src/todo_list/todo_item.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'todo_list_service.dart';
-
-class TodoItem {
-  String message;
-
-  TodoItem(Map<String, dynamic> values) {
-    this.message = values['message'];
-  }
-}
 
 @Component(
   selector: 'todo-list',
@@ -32,24 +26,23 @@ class TodoItem {
 class TodoListComponent implements OnInit {
   final TodoListService todoListService;
 
-  List<String> items = [];
   String newTodo = '';
 
-  Stream<Iterable<TodoItem>> todos;
+  Observable<List<TodoItem>> todos;
 
   TodoListComponent(this.todoListService);
 
   @override
-  Future<Null> ngOnInit() async {
-    items = await todoListService.getTodoList();
-    
-    this.todos = todoListService.test().map((snapshot) => snapshot.docs.map((doc) => new TodoItem(doc.data())));
+  ngOnInit() {
+
+    this.todos = todoListService.test();
   }
 
-  void add() {
-    items.add(newTodo);
-    newTodo = '';
+  Future add() async {
+    await todoListService.add(newTodo);
   }
 
-  String remove(int index) => items.removeAt(index);
+  Future remove(String id) async {
+    await todoListService.remove(id);
+  }
 }
