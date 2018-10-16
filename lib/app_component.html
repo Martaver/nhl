@@ -1,1 +1,21 @@
 <router-outlet [routes]="Routes.all"></router-outlet>
+<div *ngIf="!isAuthenticated()">
+    <p>Login</p>
+</div>
+
+<firebase-auth-ui [disableAutoSignIn]="true" [uiConfig]="getUIConfig()"></firebase-auth-ui>
+
+<br/>
+<div *ngIf="isAuthenticated()">
+  Authenticated!
+  <p>User email: {{userEmail}}  Display Name: {{displayName}}</p>
+  <p>User Json: {{userJson}}</p>
+  <p>Provider Access Token 
+  (may not be present unless session is new) : {{providerAccessToken}}</p>
+
+  
+  <todo-list></todo-list>
+  <today-list></today-list>
+
+  <button (click)="logout()">Logout</button>
+</div>
