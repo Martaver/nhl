@@ -15,6 +15,7 @@ import 'package:nhl/src/today/game_card_component.dart';
   ],
   templateUrl: 'today_list_component.html',
   directives: [
+    coreDirectives,
     DeferredContentDirective,
     MaterialButtonComponent,
     MaterialIconComponent,
@@ -27,7 +28,13 @@ import 'package:nhl/src/today/game_card_component.dart';
 
 class TodayListComponent {
   final DateTime date = new DateTime.now();
-  bool customWidth = false;
-  bool end = false;
-  bool overlay = false;
+  List<GameCardComponent> games = [
+    new GameCardComponent("NYR", "NYI", "7:00ET", "4-1"),
+    new GameCardComponent("NYR", "NYI", "7:00ET", "4-1"),
+    new GameCardComponent("NYR", "NYI", "7:00ET", "4-1"),
+    new GameCardComponent("NYR", "NYI", "7:00ET", "4-1"),
+  ];
+
+  GameCardComponent get myGameCardComponent => games.first;
+
 }
