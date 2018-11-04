@@ -80,9 +80,11 @@ class AppComponent {
       _uiConfig = new UIConfig(
           signInSuccessUrl: '/',
           signInOptions: [
+            fb.PhoneAuthProvider.PROVIDER_ID,
+            fb.FacebookAuthProvider.PROVIDER_ID,
+            fb.TwitterAuthProvider.PROVIDER_ID,
             googleOptions,
-            fb.EmailAuthProvider.PROVIDER_ID,
-            gitHub
+            fb.EmailAuthProvider.PROVIDER_ID
           ],
           signInFlow: "redirect",
           //signInFlow: "popup",

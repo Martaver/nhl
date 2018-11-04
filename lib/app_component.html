@@ -3,10 +3,12 @@
     <p>Login</p>
 </div>
 
-<firebase-auth-ui [disableAutoSignIn]="true" [uiConfig]="getUIConfig()"></firebase-auth-ui>
+<firebase-auth-ui [disableAutoSignIn]="false" [uiConfig]="getUIConfig()"></firebase-auth-ui>
 
 <br/>
 <div *ngIf="isAuthenticated()">
+  <button (click)="logout()">Logout</button>
+
   Authenticated!
   <p>User email: {{userEmail}}  Display Name: {{displayName}}</p>
   <p>User Json: {{userJson}}</p>
@@ -16,6 +18,5 @@
   
   <todo-list></todo-list>
   <today-list></today-list>
-
-  <button (click)="logout()">Logout</button>
+  
 </div>
