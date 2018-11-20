@@ -1,0 +1,18 @@
+# :date := (format-time-string ""%Y-%m-%d")
+#
+
+#
+# returns data about todays games
+#
+GET https://statsapi.web.nhl.com/api/v1/schedule?date=2018-11-21
+
+
+#
+# habs
+#
+GET https://statsapi.web.nhl.com/api/v1/teams/8
+
+#
+#
+#
+GET https://statsapi.web.nhl.com/api/v1/schedule?date=2018-11-19

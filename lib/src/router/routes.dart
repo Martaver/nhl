@@ -11,8 +11,13 @@ class Routes {
     component: today_list_template.TodayListComponentNgFactory,
   );
 
+  static final schedule = RouteDefinition(
+    routePath: RoutePaths.schedule,
+    component: today_list_template.TodayListComponentNgFactory,
+  );
 
   static final all = <RouteDefinition>[
     today,
+    schedule,
   ];
 }

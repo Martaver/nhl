@@ -3,3 +3,16 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.game-title-and-score {
+    text-align: center;
+}
+
+.image-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.team-logo-image {
+    width: 50%;
+}

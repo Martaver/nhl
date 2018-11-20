@@ -2,12 +2,16 @@
   <header class="material-header shadow">
     <div class="material-header-row">
       <material-button class="material-drawer-button" icon>
-        <material-icon icon="chevron_left"></material-icon>
+        <a [routerLink]="getTomorrow()">
+          <material-icon icon="chevron_left"></material-icon>
+        </a>
       </material-button>
       <div class="material-spacer"></div>
       <span class="material-header-title">Mobile Layout</span>
       <material-button class="material-drawer-button" icon>
-        <material-icon icon="chevron_right"></material-icon>
+        <!--<a [routerLink]="tomorrowUrl">-->
+          <material-icon icon="chevron_right"></material-icon>
+        <!--</a>-->
       </material-button>
     </div>
   </header>

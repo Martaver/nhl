@@ -1,23 +1,12 @@
-<div class="mdc-card demo-size game-card">
-    <div class="mdc-card__media mdc-card__media--16-9">
-        <h2 class="demo-card__title">{{game.team1}} @ {{game.team2}}</h2>
-        <div class="demo-card__subtitle">{{game.score}}</div>
+<div class="mdc-card mdc-card__primary-action mdc-ripple-upgraded demo-size game-card">
+    <div class="image-row">
+        <img src="{{homeTeamSvgUrl}}" class="team-logo-image"/>
+        <img src="{{awayTeamSvgUrl}}" class="team-logo-image"/>
     </div>
-    <div class="mdc-card__actions">
-        <div class="mdc-card__action-buttons">
-            <material-button>Read</material-button>
-            <material-button>Bookmark</material-button>
-        </div>
-        <div class="mdc-card__action-icons">
-            <material-button icon>
-                <material-icon icon="favorite_border"></material-icon>
-            </material-button>
-            <material-button icon>
-                <material-icon icon="share"></material-icon>
-            </material-button>
-            <material-button icon>
-                <material-icon icon="more_vert"></material-icon>
-            </material-button>
+    <div class="game-title-and-score">
+        <div class="demo-card__primary">
+            <h2 class="demo-card__title">{{game.awayTeamNameAbbr}} @ {{game.homeTeamNameAbbr}}</h2>
+            <h3 class="demo-card__subtitle">{{game.awayTeamScore}} - {{game.homeTeamScore}}</h3>
         </div>
     </div>
 </div>
