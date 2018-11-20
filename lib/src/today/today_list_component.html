@@ -1,20 +1,18 @@
 <div class="material-content">
-    <header class="material-header shadow">
-        <div class="material-header-row">
-            <material-button class="material-drawer-button" icon>
-                <material-icon icon="chevron_left"></material-icon>
-            </material-button>
-            <div class="material-spacer"></div>
-            <span class="material-header-title">Mobile Layout</span>
-            <material-button class="material-drawer-button" icon>
-                <material-icon icon="chevron_right"></material-icon>
-            </material-button>
-        </div>
-    </header>
+  <header class="material-header shadow">
+    <div class="material-header-row">
+      <material-button class="material-drawer-button" icon>
+        <material-icon icon="chevron_left"></material-icon>
+      </material-button>
+      <div class="material-spacer"></div>
+      <span class="material-header-title">Mobile Layout</span>
+      <material-button class="material-drawer-button" icon>
+        <material-icon icon="chevron_right"></material-icon>
+      </material-button>
+    </div>
+  </header>
 </div>
 
-<div *ngFor="let game of games">
-    <game-card [game]="game"></game-card>
+<div class="game-card-container">
+  <game-card *ngFor="let game of games" [game]="game"></game-card>
 </div>
-
-<h1>{{date}}</h1>

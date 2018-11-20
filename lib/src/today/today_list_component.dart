@@ -6,6 +6,8 @@ import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:nhl/src/today/game_card_component.dart';
+import 'package:nhl/src/today/today_list_service.dart';
+import 'game.dart';
 
 @Component(
   selector: 'today-list',
@@ -23,18 +25,20 @@ import 'package:nhl/src/today/game_card_component.dart';
     MaterialTemporaryDrawerComponent,
     MaterialToggleComponent,
     GameCardComponent,
-  ]
+  ],
+  providers: [ClassProvider(TodayListService)],
 )
 
-class TodayListComponent {
+class TodayListComponent implements OnInit {
   final DateTime date = new DateTime.now();
-  List<GameCardComponent> games = [
-    new GameCardComponent("NYR", "NYI", "7:00ET", "4-1"),
-    new GameCardComponent("NYR", "NYI", "7:00ET", "4-1"),
-    new GameCardComponent("NYR", "NYI", "7:00ET", "4-1"),
-    new GameCardComponent("NYR", "NYI", "7:00ET", "4-1"),
-  ];
+  final TodayListService _todayListService;
+  List<Game> games;
 
-  GameCardComponent get myGameCardComponent => games.first;
+  TodayListComponent(this._todayListService);
 
+  Future<void> _getGames() async {
+    games = await _todayListService.getAll();
+  }
+
+  void ngOnInit () => _getGames();
 }

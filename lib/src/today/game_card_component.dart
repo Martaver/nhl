@@ -1,6 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
+import 'package:nhl/src/today/game.dart';
 
 @Component(
   selector: 'game-card',
@@ -15,11 +16,5 @@ import 'package:angular_components/material_icon/material_icon.dart';
   ],
 )
 class GameCardComponent {
-  final String team1;
-  final String team2;
-  final String timeOfGame;
-  final String score;
-  final GameCardComponent game;
-
-  GameCardComponent(this.team1, this.team2, this.timeOfGame, this.score);
+  @Input() Game game;
 }

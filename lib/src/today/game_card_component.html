@@ -1,30 +1,23 @@
-<section>
-    <h2>{{score}}</h2>
-    <div class="mdc-card demo-size">
-        <div class="mdc-card__media mdc-card__media--16-9 demo-card__media"></div>
-        <div class="demo-card__primary">
-            <h2 class="demo-card__title">{{team1}}</h2>
-            <h2 class="demo-card__subtitle">{{team2}}</h2>
+<div class="mdc-card demo-size game-card">
+    <div class="mdc-card__media mdc-card__media--16-9">
+        <h2 class="demo-card__title">{{game.team1}} @ {{game.team2}}</h2>
+        <div class="demo-card__subtitle">{{game.score}}</div>
+    </div>
+    <div class="mdc-card__actions">
+        <div class="mdc-card__action-buttons">
+            <material-button>Read</material-button>
+            <material-button>Bookmark</material-button>
         </div>
-        <div class="demo-card__secondary">
-            Some sample text
-        </div>
-        <div class="mdc-card__actions">
-            <div class="mdc-card__action-buttons">
-                <material-button>Read</material-button>
-                <material-button>Bookmark</material-button>
-            </div>
-            <div class="mdc-card__action-icons">
-                <material-button icon>
-                    <material-icon icon="favorite_border"></material-icon>
-                </material-button>
-                <material-button icon>
-                    <material-icon icon="share"></material-icon>
-                </material-button>
-                <material-button icon>
-                    <material-icon icon="more_vert"></material-icon>
-                </material-button>
-            </div>
+        <div class="mdc-card__action-icons">
+            <material-button icon>
+                <material-icon icon="favorite_border"></material-icon>
+            </material-button>
+            <material-button icon>
+                <material-icon icon="share"></material-icon>
+            </material-button>
+            <material-button icon>
+                <material-icon icon="more_vert"></material-icon>
+            </material-button>
         </div>
     </div>
-</section>
+</div>
