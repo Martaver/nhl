@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
-import 'package:nhl/src/today/game.dart';
+import 'package:nhl/src/models/game.dart';
 import 'package:nhl/src/api/API.dart';
 
 @Component(

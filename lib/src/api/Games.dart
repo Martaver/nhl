@@ -2,7 +2,7 @@ import 'package:http/browser_client.dart';
 import 'dart:convert';
 import 'package:nhl/src/api/API.dart';
 import 'package:nhl/src/utils/teams.dart';
-import 'package:nhl/src/today/game.dart';
+import 'package:nhl/src/models/game.dart';
 
 String url = "http://statsapi.web.nhl.com/api/v1/schedule?date=2018-11-21";
 

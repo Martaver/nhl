@@ -1,4 +1,4 @@
-import 'game.dart';
+import 'package:nhl/src/models/game.dart';
 import 'dart:async';
 import 'package:nhl/src/api/Games.dart';
 

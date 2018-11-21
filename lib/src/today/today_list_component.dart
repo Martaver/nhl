@@ -9,7 +9,7 @@ import 'package:angular_router/angular_router.dart';
 import 'package:nhl/src/router/route_paths.dart';
 import 'package:nhl/src/today/game_card_component.dart';
 import 'package:nhl/src/today/today_list_service.dart';
-import 'game.dart';
+import 'package:nhl/src/models/game.dart';
 import 'package:nhl/src/router/routes.dart';
 
 @Component(
