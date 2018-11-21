@@ -37,6 +37,7 @@ class TodayListComponent implements OnActivate {
   final TodayListService _todayListService;
   final Router _router;
   List<Game> games;
+  String today;
   String tomorrowUrl;
   String yesterdayUrl;
 
@@ -56,6 +57,11 @@ class TodayListComponent implements OnActivate {
   // it nicely and I'm admitting defeat to AngularRouter
   void onActivate(_, RouterState current) async {
     final String date = getDateFromMap(current.parameters);
+
+    today = DateTime
+      .parse(date)
+      .toIso8601String()
+      .substring(0, 10);
 
     var tomorrow = DateTime
         .parse(date)
