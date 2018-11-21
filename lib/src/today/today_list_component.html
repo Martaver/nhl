@@ -1,17 +1,21 @@
 <div class="material-content">
   <header class="material-header shadow">
     <div class="material-header-row">
-      <material-button class="material-drawer-button" icon>
-        <a [routerLink]="getTomorrow()">
-          <material-icon icon="chevron_left"></material-icon>
-        </a>
+      <material-button
+              class="material-drawer-button"
+              icon
+              (click)="goToYesterday()"
+      >
+        <material-icon icon="chevron_left"></material-icon>
       </material-button>
       <div class="material-spacer"></div>
       <span class="material-header-title">Mobile Layout</span>
-      <material-button class="material-drawer-button" icon>
-        <!--<a [routerLink]="tomorrowUrl">-->
+      <material-button
+              class="material-drawer-button"
+              icon
+              (click)="goToTomorrow()"
+      >
           <material-icon icon="chevron_right"></material-icon>
-        <!--</a>-->
       </material-button>
     </div>
   </header>
