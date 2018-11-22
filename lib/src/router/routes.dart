@@ -13,14 +13,14 @@ class Routes {
     component: today_list_template.TodayListComponentNgFactory,
   );
 
+  static final review = RouteDefinition(
+    routePath: RoutePaths.review,
+    component: game_review_template.GameReviewComponentNgFactory,
+  );
+
   static final details = RouteDefinition(
     routePath: RoutePaths.details,
     component: game_details_template.GameDetailsComponentNgFactory,
-  );
-
-  static final review = RouteDefinition(
-    routePath: RoutePaths.details,
-    component: game_review_template.GameReviewComponentNgFactory,
   );
 
   static final all = <RouteDefinition>[

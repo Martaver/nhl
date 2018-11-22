@@ -6,8 +6,8 @@ const reviewId = 'reviewId';
 
 class RoutePaths {
   static final schedule = RoutePath(path: 'schedule/:$date');
+  static final review = RoutePath(path: 'review/:$reviewId');
   static final details = RoutePath(path: 'game/:$gameId');
-  static final review = RoutePath(path: 'game/:$gameId/:$reviewId');
 }
 
 String getDateFromMap(Map<String, String> params) {
