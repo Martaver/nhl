@@ -2,8 +2,7 @@ import 'package:angular_router/angular_router.dart';
 
 import 'route_paths.dart';
 import 'package:nhl/src/today/today_list_component.template.dart' as today_list_template;
-import 'package:nhl/src/game_details/game_details_component.template.dart' as game_details_template;
-import 'package:nhl/src/game_review/game_review_component.template.dart' as game_review_template;
+import 'package:nhl/src/game_details/game_container.template.dart' as game_template;
 
 export 'route_paths.dart';
 
@@ -13,19 +12,13 @@ class Routes {
     component: today_list_template.TodayListComponentNgFactory,
   );
 
-  static final review = RouteDefinition(
-    routePath: RoutePaths.review,
-    component: game_review_template.GameReviewComponentNgFactory,
-  );
-
-  static final details = RouteDefinition(
-    routePath: RoutePaths.details,
-    component: game_details_template.GameDetailsComponentNgFactory,
+  static final game = RouteDefinition(
+    routePath: RoutePaths.game,
+    component: game_template.GameContainerNgFactory,
   );
 
   static final all = <RouteDefinition>[
+    game,
     schedule,
-    details,
-    review,
   ];
 }

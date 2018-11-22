@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_router/angular_router.dart';
+import 'package:nhl/src/router/game/game_routes.dart';
 
 @Component(
   selector: 'game-detials',
@@ -11,10 +12,12 @@ import 'package:angular_router/angular_router.dart';
   ],
   templateUrl: 'game_details_component.html',
   directives: [
+    routerDirectives,
     coreDirectives,
     MaterialButtonComponent,
     MaterialIconComponent,
   ],
+  exports: [RoutePaths, Routes],
 )
 
 class GameDetailsComponent implements OnActivate {
