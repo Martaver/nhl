@@ -9,7 +9,14 @@
     <script defer src="main.dart.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-firestore.js"></script>
-  </head>
+    <script>
+        // WARNING: DO NOT set the <base href> like this in production!
+        // Details: https://webdev.dartlang.org/angular/guide/router
+        (function () {
+            var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
+            document.write('<base href="' + (m ? m[0] : '/') + '" />');
+        }());
+    </script>
   <body>
     <my-app>Loading...</my-app>
   </body>

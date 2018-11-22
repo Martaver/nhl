@@ -18,14 +18,14 @@
 </p>
 
 <ul>
-    <li *ngFor="let item of todos | async">
-      <material-checkbox #done materialTooltip="Mark item as done">
-      </material-checkbox>
-      <span [class.done]="done.checked">{{item.message}}</span>
-      <material-fab mini (trigger)="remove(item.id)">
-        <material-icon icon="delete"></material-icon>
-      </material-fab>
-    </li>
-  </ul>
+  <li *ngFor="let item of todos | async">
+    <material-checkbox #done materialTooltip="Mark item as done">
+    </material-checkbox>
+    <span [class.done]="done.checked">{{item.message}}</span>
+    <material-fab mini (trigger)="remove(item.id)">
+      <material-icon icon="delete"></material-icon>
+    </material-fab>
+  </li>
+</ul>
 
 
