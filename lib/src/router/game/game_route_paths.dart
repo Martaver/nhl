@@ -2,7 +2,6 @@ import 'package:angular_router/angular_router.dart';
 import 'package:nhl/src/router/route_paths.dart' as parent;
 
 const reviewId = 'reviewId';
-const gameId = 'gameId';
 
 class RoutePaths {
 
@@ -12,7 +11,7 @@ class RoutePaths {
   );
 
   static final details = RoutePath(
-    path: ':$gameId/',
+    path: 'details/',
     parent: parent.RoutePaths.game,
   );
 }
