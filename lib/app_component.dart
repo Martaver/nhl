@@ -54,15 +54,7 @@ class AppComponent {
       var googleOptions = new CustomSignInOptions(
           provider: fb.GoogleAuthProvider.PROVIDER_ID,
           scopes: ['email', 'https://www.googleapis.com/auth/plus.login'],
-          customParameters:
-              new GoogleCustomParameters(prompt: 'select_account'));
-
-      var gitHub = new CustomSignInOptions(
-          provider: fb.GithubAuthProvider.PROVIDER_ID,
-          // sample below of asking for additional scopes.
-          // See https://developer.github.com/apps/building-oauth-apps/scopes-for-oauth-apps/
-          scopes: [/*'repo', 'gist' */]);
-
+          customParameters: new GoogleCustomParameters(prompt: 'select_account'));
 
       var callbacks = new Callbacks(
           uiShown: () => print("UI shown callback"),
