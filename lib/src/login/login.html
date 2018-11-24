@@ -10,6 +10,22 @@
     </header>
 </div>
 
+<div *ngIf="!isAuthenticated()">
+    <firebase-auth-ui [disableAutoSignIn]="false" [uiConfig]="getUIConfig()"></firebase-auth-ui>
+</div>
+
+<br/>
+<div *ngIf="isAuthenticated()">
+    <button (click)="logout()">Logout</button>
+
+    Authenticated!
+    <p>User email: {{userEmail}}  Display Name: {{displayName}}</p>
+    <p>User Json: {{userJson}}</p>
+    <p>Provider Access Token
+        (may not be present unless session is new) : {{providerAccessToken}}</p>
+
+</div>
+
 <section>
     <h2>Useful navigation links</h2>
     <material-button
