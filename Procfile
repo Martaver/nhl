@@ -1,0 +1,1 @@
+web: /app/dart-sdk/bin/dart server/main.dart
