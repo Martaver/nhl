@@ -77,6 +77,7 @@ class LoginComponent implements OnActivate {
       _uiConfig = new UIConfig(
           signInSuccessUrl: '/',
           signInOptions: [
+            fb.PhoneAuthProvider.PROVIDER_ID,
             fb.FacebookAuthProvider.PROVIDER_ID,
             fb.TwitterAuthProvider.PROVIDER_ID,
             googleOptions,

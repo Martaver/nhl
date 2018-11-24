@@ -13,8 +13,10 @@
     </header>
 </div>
 
+<firebase-auth-ui [disableAutoSignIn]="false" [uiConfig]="getUIConfig()"></firebase-auth-ui>
+
 <div *ngIf="!isAuthenticated()">
-    <firebase-auth-ui [disableAutoSignIn]="false" [uiConfig]="getUIConfig()"></firebase-auth-ui>
+    
 </div>
 
 <div *ngIf="isAuthenticated()">
