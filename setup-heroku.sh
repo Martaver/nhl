@@ -15,4 +15,4 @@ heroku config:set PATH=/app/bin:/usr/local/bin:/usr/bin:/bin:/app/.pub-cache/bin
 heroku config:set PUB_CACHE=/app/pub-cache
 
 # Configure dart build on buildpack
-heroku config:set DART_BUILD_CMD="/app/dart-sdk/bin/pub global activate webdev && /app/dart-sdk/bin/pub global run webdev build -o /app/build && ls -a /app && ls -a /app/build"
+heroku config:set DART_BUILD_CMD="/app/dart-sdk/bin/pub global activate webdev && /app/dart-sdk/bin/pub global run webdev build -o --delete-conflicting-outputs && ls -a /app && ls -a /app/build"
