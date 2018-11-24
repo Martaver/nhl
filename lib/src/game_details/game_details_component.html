@@ -7,9 +7,14 @@
                 <material-icon icon="chevron_left"></material-icon>
             </material-button>
             <div class="material-spacer"></div>
-            <span class="material-header-title">GAME DETAILS SCREEN</span>
+            <span class="material-header-title">GAME DETAILS SCREEN</span>            
         </div>
     </header>
+    <div>
+            <div *ngFor="let review of reviews | async" >
+                {{review.message}}
+            </div>
+    </div>
 </div>
 
 <!--<a [routerLink]="Routes.review.toUrl()">to review!</a>-->

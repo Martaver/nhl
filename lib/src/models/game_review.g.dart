@@ -1,14 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'todo_item.dart';
+part of 'game_review.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TodoItem _$TodoItemFromJson(Map<String, dynamic> json) {
-  return TodoItem(id: json['id'] as String, message: json['message'] as String);
+GameReview _$GameReviewFromJson(Map<String, dynamic> json) {
+  return GameReview(
+      id: json['id'] as String, message: json['message'] as String);
 }
 
-Map<String, dynamic> _$TodoItemToJson(TodoItem instance) =>
+Map<String, dynamic> _$GameReviewToJson(GameReview instance) =>
     <String, dynamic>{'id': instance.id, 'message': instance.message};
