@@ -1,0 +1,31 @@
+:host {
+    width: 100%;
+    overflow: auto;
+    justify-content: center;
+}
+
+.game-media {
+    background-color: gray;
+    min-height: 30vh;
+    margin: 3vh;
+}
+
+.game-action {
+    height: 10vh;
+    margin: 3vh;
+}
+
+.game-roster {
+    background-color: gray;
+    min-height: 50vh;
+    margin: 3vh;
+}
+
+
+.full-width-action {
+    display: block;
+    margin: auto;
+    padding: 2vh;
+    height: 100%;
+}
+
