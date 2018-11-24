@@ -60,6 +60,7 @@ class TodayListComponent implements OnActivate {
   void onActivate(_, RouterState current) async {
 
     // check if we are signed in - if not, redirect to login
+    // TODO see if there's a way of doing this without having to check on each route
     if (!isAuthenticated()) {
       _router.navigate('/login');
       return;
