@@ -6,6 +6,9 @@
             </material-button>
             <div class="material-spacer"></div>
             <span class="material-header-title">LOGIN</span>
+            <material-button (click)="logout()">
+                <material-icon icon="exit_to_app"></material-icon>
+            </material-button>
         </div>
     </header>
 </div>
@@ -14,36 +17,28 @@
     <firebase-auth-ui [disableAutoSignIn]="false" [uiConfig]="getUIConfig()"></firebase-auth-ui>
 </div>
 
-<br/>
 <div *ngIf="isAuthenticated()">
-    <button (click)="logout()">Logout</button>
+    <h2>Welcome, {{displayName}}</h2>
 
-    Authenticated!
-    <p>User email: {{userEmail}}  Display Name: {{displayName}}</p>
-    <p>User Json: {{userJson}}</p>
-    <p>Provider Access Token
-        (may not be present unless session is new) : {{providerAccessToken}}</p>
-
+    <section>
+        <h2>Useful navigation links</h2>
+        <material-button
+                raised
+                (click)="goToToday()"
+        >
+            Go to todays games
+        </material-button>
+        <material-button
+                raised
+                (click)="goToGame()"
+        >
+            Go to a specific game
+        </material-button>
+        <material-button
+                raised
+                (click)="goToReview()"
+        >
+            Go to a review
+        </material-button>
+    </section>
 </div>
-
-<section>
-    <h2>Useful navigation links</h2>
-    <material-button
-            raised
-            (click)="goToToday()"
-    >
-        Go to todays games
-    </material-button>
-    <material-button
-            raised
-            (click)="goToGame()"
-    >
-        Go to a specific game
-    </material-button>
-    <material-button
-            raised
-            (click)="goToReview()"
-    >
-        Go to a review
-    </material-button>
-</section>

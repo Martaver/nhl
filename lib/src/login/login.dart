@@ -2,11 +2,8 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
-// import 'package:firebase/firebase.dart';
 import 'package:firebase_dart_ui/firebase_dart_ui.dart';
 import 'package:firebase/firebase.dart' as fb;
-import 'package:firebase/src/interop/firebase_interop.dart';
-import 'package:js/js.dart';
 import 'package:random_string/random_string.dart';
 
 @Component(
@@ -27,6 +24,7 @@ import 'package:random_string/random_string.dart';
 
 class LoginComponent implements OnActivate {
   final Router _router;
+  UIConfig _uiConfig;
 
   Future<NavigationResult> goToToday () {
     String today = DateTime.now()
@@ -52,33 +50,16 @@ class LoginComponent implements OnActivate {
     return _router.navigate('game/${gameId}/review/${reviewId}');
   }
 
-
-  UIConfig _uiConfig;
-
   Future<Null> logout() async {
     await fb.auth().signOut();
     providerAccessToken = "";
   }
 
-  // todo: We need to create a nicer wrapper for the sign in callbacks.
-  PromiseJsImpl<void>  signInFailure(AuthUIError authUiError) {
-    // nothing to do;
-    return new PromiseJsImpl<void>( () => print("SignIn Failure"));
-  }
-
-  // Example SignInSuccess callback handler
-  bool signInSuccess(Object user, Object authCredential, String redirectUrl) {
-//    print("sign in  success. ProviderID =  ${authResult.credential.providerId}");
-//    print("Info= ${authResult.additionalUserInfo}");
-
-    print(user);
-    print(authCredential);
-
+  bool signInSuccessWithAuthResult(fb.UserCredential authResult, _) {
+    print(authResult);
     return false;
   }
 
-  /// Your Application must provide the UI configuration for the
-  /// AuthUi widget. This is where you configure the providers and options.
   UIConfig getUIConfig() {
     if (_uiConfig == null) {
       var googleOptions = new CustomSignInOptions(
@@ -87,31 +68,21 @@ class LoginComponent implements OnActivate {
           customParameters:
           new GoogleCustomParameters(prompt: 'select_account'));
 
-      var gitHub = new CustomSignInOptions(
-          provider: fb.GithubAuthProvider.PROVIDER_ID,
-          // sample below of asking for additional scopes.
-          // See https://developer.github.com/apps/building-oauth-apps/scopes-for-oauth-apps/
-          scopes: [/*'repo', 'gist' */]);
-
-
       var callbacks = new Callbacks(
-          uiShown: () => print("UI shown callback"),
-          signInSuccess: allowInterop(signInSuccess),
-          signInFailure: signInFailure
+          // uiShown: () => print("UI shown callback"),
+          signInSuccessWithAuthResult: signInSuccessWithAuthResult,
+          // signInFailure: signInFailure
       );
-
 
       _uiConfig = new UIConfig(
           signInSuccessUrl: '/',
           signInOptions: [
-            fb.PhoneAuthProvider.PROVIDER_ID,
             fb.FacebookAuthProvider.PROVIDER_ID,
             fb.TwitterAuthProvider.PROVIDER_ID,
             googleOptions,
             fb.EmailAuthProvider.PROVIDER_ID
           ],
           signInFlow: "redirect",
-          //signInFlow: "popup",
           credentialHelper: ACCOUNT_CHOOSER,
           tosUrl: '/tos.html',
           callbacks: callbacks);
@@ -123,8 +94,6 @@ class LoginComponent implements OnActivate {
   String get userEmail => fb.auth().currentUser?.email;
   String get displayName => fb.auth().currentUser?.displayName;
   Map<String, dynamic> get userJson => fb.auth().currentUser?.toJson();
-
-  // If the provider gave us an access token, we put it here.
   String providerAccessToken = '';
 
   LoginComponent(this._router);

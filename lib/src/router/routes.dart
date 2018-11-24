@@ -1,7 +1,7 @@
 import 'package:angular_router/angular_router.dart';
 
 import 'route_paths.dart';
-import 'package:nhl/src/today/today_list_component.template.dart' as today_list_template;
+import 'package:nhl/src/game_schedule/game_schedule_component.template.dart' as game_schedule_template;
 import 'package:nhl/src/game_details/game_container.template.dart' as game_template;
 import 'package:nhl/src/login/login.template.dart' as login_template;
 
@@ -21,7 +21,7 @@ class Routes {
 
   static final schedule = RouteDefinition(
     routePath: RoutePaths.schedule,
-    component: today_list_template.TodayListComponentNgFactory,
+    component: game_schedule_template.TodayListComponentNgFactory,
   );
 
   static final game = RouteDefinition(

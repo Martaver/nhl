@@ -11,4 +11,12 @@ import 'src/router/routes.dart';
   ],
   exports: [RoutePaths, Routes],
 )
-class AppComponent {}
+class AppComponent implements OnActivate {
+  @override
+  void onActivate(RouterState previous, RouterState current) {
+    // TODO: implement onActivate
+
+    print('AppComponent onActivate');
+  }
+
+}
