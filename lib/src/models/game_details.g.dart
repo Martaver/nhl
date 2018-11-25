@@ -357,11 +357,17 @@ Map<String, dynamic> _$PersonToJson(Person instance) =>
     <String, dynamic>{'id': instance.id, 'fullName': instance.fullName};
 
 Position _$PositionFromJson(Map<String, dynamic> json) {
-  return Position(code: json['code'] as String, name: json['name'] as String);
+  return Position(
+      code: json['code'] as String,
+      name: json['name'] as String,
+      type: json['type'] as String);
 }
 
-Map<String, dynamic> _$PositionToJson(Position instance) =>
-    <String, dynamic>{'code': instance.code, 'name': instance.name};
+Map<String, dynamic> _$PositionToJson(Position instance) => <String, dynamic>{
+      'code': instance.code,
+      'name': instance.name,
+      'type': instance.type
+    };
 
 PlayerStats _$PlayerStatsFromJson(Map<String, dynamic> json) {
   return PlayerStats(

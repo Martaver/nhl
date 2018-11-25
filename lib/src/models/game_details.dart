@@ -310,8 +310,9 @@ class Person {
 class Position {
   String code;
   String name;
+  String type;
 
-  Position({ this.code, this.name });
+  Position({ this.code, this.name, this.type });
   factory Position.fromJson(Map<String, dynamic> json) => _$PositionFromJson(json);
 }
 

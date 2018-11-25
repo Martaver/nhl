@@ -94,7 +94,15 @@ class GameDetailsComponent implements OnActivate {
     _getGameDetails(gameId);
 
     // pull reviews from firebase for this game (if there is any).
-    _getReviewsForGame(gameId);  
+    _getReviewsForGame(gameId);
+
+    // IF the game date is in the past
+
+    // then get the team ids
+
+    // fetch both of the rosters using team_roster_service.
+
+    // show the rosters.
 
     // Testing/demonstrating attendance service here:
     var userId = userProfileService.currentUserId;

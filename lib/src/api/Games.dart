@@ -5,11 +5,6 @@ import 'package:nhl/src/utils/teams.dart';
 import 'package:nhl/src/models/game.dart';
 import 'package:nhl/src/models/game_details.dart';
 
-String base = "https://statsapi.web.nhl.com/api/v1/";
-String url = "schedule?date=2018-11-21";
-String game = "game/2018020349/feed/live";
-
-
 Game parseJsonMapToGame(Map m) {
   Map teams = m['teams'];
   int id = m['gamePk'];
