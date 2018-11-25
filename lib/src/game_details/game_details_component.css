@@ -22,10 +22,11 @@
 }
 
 
-.full-width-action {
+.full-width-action-button {
     display: block;
     margin: auto;
     padding: 2vh;
     height: 100%;
+    background: gray;
 }
 
