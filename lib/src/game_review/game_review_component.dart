@@ -1,10 +1,15 @@
+import 'dart:html';
+
 import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input_multiline.dart';
 import 'package:angular_router/angular_router.dart';
+import 'package:nhl/src/game_review_upload/game_review_upload_component.dart';
 import 'package:nhl/src/models/game_review.dart';
 import 'package:nhl/src/services/game_review.service.dart';
+
+import 'package:firebase/firebase.dart' as fb;
 
 
 @Component(
@@ -20,6 +25,7 @@ import 'package:nhl/src/services/game_review.service.dart';
     MaterialButtonComponent,
     MaterialIconComponent,
     MaterialMultilineInputComponent,
+    PhotoBooth
   ],
   providers: [const ClassProvider(GameReviewService)],
 )
@@ -70,6 +76,13 @@ class GameReviewComponent implements OnActivate {
     // Remove the game from firebase.    
     await this.gameReviewService.remove(this.gameId, this.gameId);
     // Push route back to game.
+  }
+
+  final fb.StorageReference storageRef = fb.storage().ref("snapshots");
+
+  onGotSnapshot(GotSnapshotEvent event) async {
+        
+    var snapshot = await storageRef.child('test').put(event.blob).future;
   }
 
 }
