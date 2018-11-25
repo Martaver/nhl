@@ -8,11 +8,15 @@ part of 'game_details.dart';
 
 GameDetails _$GameDetailsFromJson(Map<String, dynamic> json) {
   return GameDetails(
-      gameData: GameData.fromJson(json['gameData'] as Map<String, dynamic>));
+      gameData: GameData.fromJson(json['gameData'] as Map<String, dynamic>),
+      liveData: LiveData.fromJson(json['liveData'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$GameDetailsToJson(GameDetails instance) =>
-    <String, dynamic>{'gameData': instance.gameData};
+    <String, dynamic>{
+      'gameData': instance.gameData,
+      'liveData': instance.liveData
+    };
 
 GameData _$GameDataFromJson(Map<String, dynamic> json) {
   return GameData(
@@ -132,13 +136,13 @@ Map<String, dynamic> _$VenueToJson(Venue instance) =>
 
 LiveData _$LiveDataFromJson(Map<String, dynamic> json) {
   return LiveData(
-      lineScore: LineScore.fromJson(json['lineScore'] as Map<String, dynamic>),
-      boxScore: BoxScore.fromJson(json['boxScore'] as Map<String, dynamic>));
+      linescore: LineScore.fromJson(json['linescore'] as Map<String, dynamic>),
+      boxscore: BoxScore.fromJson(json['boxscore'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$LiveDataToJson(LiveData instance) => <String, dynamic>{
-      'lineScore': instance.lineScore,
-      'boxScore': instance.boxScore
+      'linescore': instance.linescore,
+      'boxscore': instance.boxscore
     };
 
 LineScore _$LineScoreFromJson(Map<String, dynamic> json) {

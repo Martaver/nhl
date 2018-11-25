@@ -62,6 +62,7 @@ Future<GameDetails> fetchGameById(String gameId) async {
   try {
     final response = await _http.get(
         API.baseUrl + API.getGamePathFromId(gameId));
+
     parsed = GameDetails.fromJson(json.decode(response.body));
   } catch (e) {
     print('whoops, error');

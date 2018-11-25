@@ -6,8 +6,9 @@ part 'game_details.g.dart';
 @JsonSerializable(nullable: false)
 class GameDetails {
   GameData gameData;
+  LiveData liveData;
 
-  GameDetails({ this.gameData });
+  GameDetails({ this.gameData, this.liveData });
   factory GameDetails.fromJson(Map<String, dynamic> json) => _$GameDetailsFromJson(json);
 }
 
@@ -123,20 +124,29 @@ class Venue {
 
 @JsonSerializable(nullable: false)
 class LiveData {
-  LineScore lineScore;
-  BoxScore boxScore;
+   LineScore linescore;
+   BoxScore boxscore;
 
-  LiveData({ this.lineScore, this.boxScore });
+   LiveData({
+     this.linescore,
+     this.boxscore,
+   });
+
   factory LiveData.fromJson(Map<String, dynamic> json) => _$LiveDataFromJson(json);
 }
 
 @JsonSerializable()
 class LineScore {
-  int currentPeriod;
-  String currentPeriodTimeRemaining;
-  List<Period> periods;
+    int currentPeriod;
+    String currentPeriodTimeRemaining;
+   List<Period> periods;
 
-  LineScore({ this.currentPeriod, this.currentPeriodTimeRemaining, this.periods });
+   LineScore({
+     this.currentPeriod,
+     this.currentPeriodTimeRemaining,
+     this.periods
+   });
+
   factory LineScore.fromJson(Map<String, dynamic> json) => _$LineScoreFromJson(json);
 }
 
