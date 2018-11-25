@@ -1,9 +1,11 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
+import 'package:angular_components/material_input/material_input_multiline.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:nhl/src/models/game_review.dart';
 import 'package:nhl/src/services/game_review.service.dart';
+
 
 @Component(
   selector: 'game-review',
@@ -14,8 +16,10 @@ import 'package:nhl/src/services/game_review.service.dart';
   templateUrl: 'game_review_component.html',
   directives: [
     coreDirectives,
+    routerDirectives,
     MaterialButtonComponent,
     MaterialIconComponent,
+    MaterialMultilineInputComponent,
   ],
   providers: [const ClassProvider(GameReviewService)],
 )
@@ -23,13 +27,20 @@ import 'package:nhl/src/services/game_review.service.dart';
 class GameReviewComponent implements OnActivate {
   
   final GameReviewService gameReviewService;
+  final Router _router;
 
-  GameReviewComponent(this.gameReviewService);
+  GameReviewComponent(this.gameReviewService, this._router);
 
   /**
    * The id of the game we are adding this review to. Set this in onActivate, it will be used in 'submit' and 'delete'.
    */
   String gameId;
+
+  /**
+   * The id of the review itself. Set this in onActivate
+   * This should be the ID of the doc that we're using in firebase, if possible.
+   */
+  String reviewId;
 
   /**
    * Bind controls to fields on this review object, it will be saved when 'submit' is called.
@@ -38,24 +49,18 @@ class GameReviewComponent implements OnActivate {
 
 
   void onActivate(_, RouterState current) async {
-    // TODO implement this.
-    
     // get the game ID from the route
-    this.gameId = "xyz";
-    // print(gameId);
-
-    // we can assume that every review is a new one (we won't allow editing reviews).
-
-    // so in which case implement an onsubmit and then this will post to firebase the review.
-    
+    gameId = current.parameters['gameid'];
+    reviewId = current.parameters['reviewid'];
   }
 
   /**
    * Submits the review, saving it to firebase.
+   * Navigate back to game details view
    */
-  Future<String> submit() async {    
-    return await this.gameReviewService.add(this.gameId, this.review);
-    // Push route back to game?
+  Future<NavigationResult> submit() async {
+    await this.gameReviewService.add(this.gameId, this.review);
+    return _router.navigate('$gameId/details');
   }
 
   /**

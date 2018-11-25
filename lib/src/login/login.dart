@@ -31,7 +31,6 @@ class LoginComponent implements OnActivate {
       .toIso8601String()
       .substring(0, 10);
 
-    print('schedule/${today}');
    return _router.navigate('schedule/${today}');
   }
 
@@ -68,10 +67,8 @@ class LoginComponent implements OnActivate {
           customParameters:
           new GoogleCustomParameters(prompt: 'select_account'));
 
-      var callbacks = new Callbacks(
-          // uiShown: () => print("UI shown callback"),          
-          signInSuccess: signInSuccessWithAuthResult
-          // signInFailure: signInFailure
+      var callbacks = new Callbacks(                
+          signInSuccessWithAuthResult: signInSuccessWithAuthResult          
       );
 
       _uiConfig = new UIConfig(
