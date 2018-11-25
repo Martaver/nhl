@@ -31,7 +31,6 @@ class LoginComponent implements OnActivate {
       .toIso8601String()
       .substring(0, 10);
 
-    print('schedule/${today}');
    return _router.navigate('schedule/${today}');
   }
 
@@ -70,7 +69,7 @@ class LoginComponent implements OnActivate {
 
       var callbacks = new Callbacks(
           // uiShown: () => print("UI shown callback"),          
-          signInSuccess: signInSuccessWithAuthResult
+          signInSuccessWithAuthResult: signInSuccessWithAuthResult
           // signInFailure: signInFailure
       );
 

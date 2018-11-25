@@ -9,7 +9,7 @@ import 'package:firebase/firebase.dart' as fb;
 import 'package:angular_router/angular_router.dart';
 import 'package:nhl/src/router/route_paths.dart';
 import 'package:nhl/src/game_schedule/game_card_component.dart';
-import 'package:nhl/src/game_schedule/game_schedule_service.dart';
+import 'package:nhl/src/services/game_schedule.service.dart';
 import 'package:nhl/src/models/game.dart';
 import 'package:nhl/src/router/routes.dart';
 

@@ -15,4 +15,16 @@ GET https://statsapi.web.nhl.com/api/v1/teams/8
 #
 #
 #
-GET https://statsapi.web.nhl.com/api/v1/schedule?date=2018-11-19
+GET https://statsapi.web.nhl.com/api/v1/schedule?date=2018-11-27
+
+
+#
+# BOS vs MTL - game in the past
+#
+GET https://statsapi.web.nhl.com/api/v1/game/2018020349/feed/live
+
+
+#
+# SJS vs BUF - game in the future
+#
+GET https://statsapi.web.nhl.com/api/v1/game/2018020367/feed/live

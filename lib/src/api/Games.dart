@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'package:nhl/src/api/API.dart';
 import 'package:nhl/src/utils/teams.dart';
 import 'package:nhl/src/models/game.dart';
+import 'package:nhl/src/models/game_details.dart';
 
-String url = "http://statsapi.web.nhl.com/api/v1/schedule?date=2018-11-21";
+String base = "https://statsapi.web.nhl.com/api/v1/";
+String url = "schedule?date=2018-11-21";
+String game = "game/2018020349/feed/live";
 
 
 Game parseJsonMapToGame(Map m) {
@@ -46,6 +49,22 @@ Future<List<Game>> fetchGamesByDate(String date) async {
     final games = (json.decode(response.body)['dates'][0]['games'] as List);
     parsed = games.map((game) => parseJsonMapToGame(game)).toList();
   } catch (e) {
+    print(e);
+  } finally {
+    return parsed;
+  }
+}
+
+
+Future<GameDetails> fetchGameById(String gameId) async {
+  var parsed;
+
+  try {
+    final response = await _http.get(
+        API.baseUrl + API.getGamePathFromId(gameId));
+    parsed = GameDetails.fromJson(json.decode(response.body));
+  } catch (e) {
+    print('whoops, error');
     print(e);
   } finally {
     return parsed;
