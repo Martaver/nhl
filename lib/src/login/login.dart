@@ -67,10 +67,8 @@ class LoginComponent implements OnActivate {
           customParameters:
           new GoogleCustomParameters(prompt: 'select_account'));
 
-      var callbacks = new Callbacks(
-          // uiShown: () => print("UI shown callback"),          
-          signInSuccessWithAuthResult: signInSuccessWithAuthResult
-          // signInFailure: signInFailure
+      var callbacks = new Callbacks(                
+          signInSuccessWithAuthResult: signInSuccessWithAuthResult          
       );
 
       _uiConfig = new UIConfig(
