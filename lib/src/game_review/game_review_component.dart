@@ -5,8 +5,8 @@ import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input_multiline.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:nhl/src/game_review_upload/game_review_upload_component.dart';
 import 'package:nhl/src/models/game_review.dart';
+import 'package:nhl/src/photo_booth/photo_booth_component.dart';
 import 'package:nhl/src/services/game_review.service.dart';
 
 import 'package:firebase/firebase.dart' as fb;
@@ -25,7 +25,7 @@ import 'package:firebase/firebase.dart' as fb;
     MaterialButtonComponent,
     MaterialIconComponent,
     MaterialMultilineInputComponent,
-    PhotoBooth
+    PhotoBoothComponent
   ],
   providers: [const ClassProvider(GameReviewService)],
 )

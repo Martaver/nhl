@@ -1,0 +1,7 @@
+<div #recorder [ngStyle]="{'display': state == State.Recording ? 'inherit' : 'none'}">
+    <video #video muted autoplay (click)="snapshot()"></video>
+    <canvas #canvas></canvas>
+</div>
+<div #confirmer [ngStyle]="{'display': state == State.Confirming ? 'inherit' : 'none'}">
+    <img [src]="imgSrc"/>
+</div>

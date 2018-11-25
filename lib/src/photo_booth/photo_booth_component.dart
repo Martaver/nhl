@@ -25,34 +25,12 @@ class GotSnapshotEvent {
 
 @Component(
   selector: 'photo-booth',
-  styles: ['''
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    canvas {
-      display: none;
-    }
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-'''],
-  template: '''
-<div #recorder [ngStyle]="{'display': state == State.Recording ? 'inherit' : 'none'}">
-  <video #video muted autoplay (click)="snapshot()"></video>
-  <canvas #canvas></canvas>
-</div>
-<div #confirmer [ngStyle]="{'display': state == State.Confirming ? 'inherit' : 'none'}">
-  <img [src]="imgSrc"/>
-</div>
-''',
-directives: [NgStyle],
-exports: [State]
+  styleUrls: ['photo_booth_component.css'],
+  templateUrl: 'photo_booth_component.html',
+  directives: [NgStyle],
+  exports: [State]
 )
-class PhotoBooth implements AfterViewInit, OnDestroy {
+class PhotoBoothComponent implements AfterViewInit, OnDestroy {
 
 
   final StreamController<GotSnapshotEvent> gotSnapshotController = new StreamController.broadcast();
@@ -66,14 +44,13 @@ class PhotoBooth implements AfterViewInit, OnDestroy {
   // VideoElement get video => videoRef.nativeElement;
 
   @ViewChild("video") VideoElement video;
-
   @ViewChild("canvas") CanvasElement canvas;
     
   String imgSrc;
   CanvasRenderingContext2D context;
   NgZone zone;
 
-  PhotoBooth(NgZone zone) {
+  PhotoBoothComponent(NgZone zone) {
     this.zone = zone;
   }
 
