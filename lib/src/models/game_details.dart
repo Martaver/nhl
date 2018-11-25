@@ -168,6 +168,7 @@ class PeriodTeam {
   String rinkSide;
 
   PeriodTeam({this.goals, this.shotsOnGoal, this.rinkSide});
+  factory PeriodTeam.fromJson(Map<String, dynamic> json) => _$PeriodTeamFromJson(json);
 }
 
 @JsonSerializable()
@@ -176,6 +177,7 @@ class LineScoreTeams {
   LineScoreTeam away;
 
   LineScoreTeams({this.home, this.away});
+  factory LineScoreTeams.fromJson(Map<String, dynamic> json) => _$LineScoreTeamsFromJson(json);
 }
 
 @JsonSerializable()
@@ -195,6 +197,8 @@ class LineScoreTeam {
     this.powerPlay,
     this.team,
   });
+
+  factory LineScoreTeam.fromJson(Map<String, dynamic> json) => _$LineScoreTeamFromJson(json);
 }
 
 @JsonSerializable()
