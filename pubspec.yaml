@@ -17,6 +17,8 @@ dependencies:
   service_worker: ^0.2.3
   json_serializable: ^1.5.0
   rxdart: ^0.19.0
+  random_string: ^0.0.2
+  firebase_dart_ui: ^0.1.1
 
 dev_dependencies:
   angular_test: ^2.0.0

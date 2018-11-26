@@ -1,0 +1,46 @@
+<div class="material-content">
+    <header class="material-header shadow">
+        <div class="material-header-row">
+            <material-button class="material-drawer-button" icon>
+                <material-icon icon="chevron_left"></material-icon>
+            </material-button>
+            <div class="material-spacer"></div>
+            <span class="material-header-title">LOGIN</span>
+            <material-button (click)="logout()">
+                <material-icon icon="exit_to_app"></material-icon>
+            </material-button>
+        </div>
+    </header>
+</div>
+
+<firebase-auth-ui [disableAutoSignIn]="false" [uiConfig]="getUIConfig()"></firebase-auth-ui>
+
+<div *ngIf="!isAuthenticated()">
+    
+</div>
+
+<div *ngIf="isAuthenticated()">
+    <h2>Welcome, {{displayName}}</h2>
+
+    <section>
+        <h2>Useful navigation links</h2>
+        <material-button
+                raised
+                (click)="goToToday()"
+        >
+            Go to todays games
+        </material-button>
+        <material-button
+                raised
+                (click)="goToGame()"
+        >
+            Go to a specific game
+        </material-button>
+        <material-button
+                raised
+                (click)="goToReview()"
+        >
+            Go to a review
+        </material-button>
+    </section>
+</div>
