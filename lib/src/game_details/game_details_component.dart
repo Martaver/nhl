@@ -10,6 +10,7 @@ import 'package:nhl/src/router/game/game_routes.dart';
 import 'package:nhl/src/services/game_attendance.service.dart';
 import 'package:nhl/src/services/game_review.service.dart';
 import 'package:nhl/src/services/game_details.service.dart';
+import 'package:nhl/src/services/selfie.service.dart';
 import 'package:nhl/src/services/team_roster.service.dart';
 import 'package:nhl/src/services/user_profile.service.dart';
 import 'package:random_string/random_string.dart';
@@ -38,6 +39,7 @@ import 'package:nhl/src/api/API.dart';
     ClassProvider(UserProfileService),
     ClassProvider(TeamRosterService),
     ClassProvider(GameAttendanceService),
+    ClassProvider(SelfieService),
   ],
   pipes: [commonPipes],
 )
@@ -47,6 +49,7 @@ class GameDetailsComponent implements OnActivate {
   final UserProfileService userProfileService;
   final TeamRosterService teamRosterService;
   final GameAttendanceService gameAttendanceService;
+  final SelfieService selfieService;
   final Location _location;
 
   GameDetailsComponent(
@@ -55,6 +58,7 @@ class GameDetailsComponent implements OnActivate {
     this.userProfileService,
     this.gameAttendanceService,
     this.teamRosterService,
+    this.selfieService,
     this._location,
       this._router,
   );
@@ -73,6 +77,11 @@ class GameDetailsComponent implements OnActivate {
    * A list of review for this game
    */
   List<GameReview> reviews;
+
+  /**
+   * Selfie
+   */
+  Map<String, String> selfies = Map();
 
   /**
    * The ID number of the game that we would like to view.
@@ -140,6 +149,7 @@ class GameDetailsComponent implements OnActivate {
    */
   void markAttending() {
     gameAttendanceService.markAttending(gameId, userId, new GameAttendance());
+    attendeeCount++;
     userGoing = true;
   }
 
@@ -148,6 +158,7 @@ class GameDetailsComponent implements OnActivate {
    */
   void markNotAttending() {
     gameAttendanceService.markNotAttending(gameId, userId);
+    attendeeCount--;
     userGoing = false;
   }
 
@@ -162,6 +173,17 @@ class GameDetailsComponent implements OnActivate {
      */
   Future<void> _getReviewsForGame(String id) async {
     reviews = await gameReviewService.all(id);
+
+    // pull selfies if there are any
+    reviews.forEach((GameReview r) {
+      if (r.hasSelfie != null && r.hasSelfie) {
+        selfieService.getUrl(r.id).then((Uri uri) {
+          if (uri != null) {
+            selfies[r.id] = uri.toString();
+          }
+        });
+      }
+    });
   }
 
   Future<List<Roster.Player>> _getTeamRoster(int teamId) async =>

@@ -10,12 +10,14 @@ GameReview _$GameReviewFromJson(Map<String, dynamic> json) {
   return GameReview(
       id: json['id'] as String,
       message: json['message'] as String,
-      rating: json['rating'] as int);
+      rating: json['rating'] as int,
+      hasSelfie: json['hasSelfie'] as bool);
 }
 
 Map<String, dynamic> _$GameReviewToJson(GameReview instance) =>
     <String, dynamic>{
       'id': instance.id,
       'message': instance.message,
-      'rating': instance.rating
+      'rating': instance.rating,
+      'hasSelfie': instance.hasSelfie
     };

@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="game_details_component.css">
 <div class="material-content">
     <header class="material-header shadow">
         <div class="material-header-row">
@@ -25,6 +24,14 @@
         <h1 *ngIf="hasBeenPlayed">
             {{details.liveData.boxscore.teams.away.teamStats.teamSkaterStats.goals}} - {{details.liveData.boxscore.teams.home.teamStats.teamSkaterStats.goals}}
         </h1>
+
+        <h3 *ngIf="hasBeenPlayed && attendeeCount != null && attendeeCount > 0">
+            {{attendeeCount == 1 ? attendeeCount.toString() + ' person watched this game!' : attendeeCount.toString() + ' people watched this game!'}}
+        </h3>
+
+        <h3 *ngIf="!hasBeenPlayed && attendeeCount != null && attendeeCount > 0">
+            {{attendeeCount == 1 ? attendeeCount.toString() + ' person will watch this game!' : attendeeCount.toString() + ' people are going to watch this game!'}}
+        </h3>
     </div>
 
 
@@ -139,6 +146,14 @@
             <div class="mdc-card mdc-card__primary-action mdc-ripple-upgraded demo-size review-card"
                  *ngFor="let review of reviews"
             >
+                <div *ngIf="selfies != null && selfies[review.id] != null"
+
+                >
+                    <img [src]="selfies[review.id]"
+                         style="width: 100%"
+                    />
+                </div>
+                <!--<p *ngIf="selfies[review.id] == null">No selfie</p>-->
                 <div class="title-and-score">
                     <div class="demo-card__primary">
                         <h2 class="demo-card__title">{{review.message}}</h2>

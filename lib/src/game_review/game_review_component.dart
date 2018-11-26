@@ -48,7 +48,7 @@ class GameReviewComponent implements OnActivate {
    * The id of the review itself. Set this in onActivate
    * This should be the ID of the doc that we're using in firebase, if possible.
    */
-  String reviewId;
+  // String reviewId;
 
   /**
    * Bind controls to fields on this review object, it will be saved when 'submit' is called.
@@ -68,7 +68,7 @@ class GameReviewComponent implements OnActivate {
   void onActivate(_, RouterState current) async {
     // get the game ID from the route
     gameId = current.parameters['gameid'];
-    reviewId = current.parameters['reviewid'];
+    // reviewId = current.parameters['reviewid'];
   }
 
   /**
@@ -105,6 +105,7 @@ class GameReviewComponent implements OnActivate {
 
   void clearSelfie() {
     hasSelfie = false;
+    review.hasSelfie = false;
     selfieSnapshot = null;
     confirming = false;
   }
@@ -128,6 +129,7 @@ class GameReviewComponent implements OnActivate {
     selfieSnapshot = event;
     isGettingSelfie = false;    
     hasSelfie = true;
+    review.hasSelfie = true;
     confirming = true;
   }
 
