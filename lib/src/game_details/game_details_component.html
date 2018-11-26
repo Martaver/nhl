@@ -1,5 +1,9 @@
 <!--<router-outlet [routes]="Routes.all"></router-outlet>-->
 
+<div *ngFor="let review of reviews" >
+    {{review.message}}
+</div>
+
 <div class="material-content">
     <header class="material-header shadow">
         <div class="material-header-row">
@@ -52,10 +56,11 @@
 
     <!--</mat-table>-->
 </div>
-    <div>
+    <div id="review">
             <div *ngFor="let review of reviews" >
                 {{review.message}}
             </div>
     </div>
 
 <!--<a [routerLink]="Routes.review.toUrl()">to review!</a>-->
+
