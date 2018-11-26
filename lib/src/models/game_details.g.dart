@@ -86,7 +86,10 @@ Player _$PlayerFromJson(Map<String, dynamic> json) {
       birthCountry: json['birthCountry'] as String,
       nationality: json['nationality'] as String,
       height: json['height'] as String,
-      weight: json['weight'] as int);
+      weight: json['weight'] as int,
+      currentTeam: json['currentTeam'] == null
+          ? null
+          : CurrentTeam.fromJson(json['currentTeam'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$PlayerToJson(Player instance) => <String, dynamic>{
@@ -102,7 +105,8 @@ Map<String, dynamic> _$PlayerToJson(Player instance) => <String, dynamic>{
       'birthCountry': instance.birthCountry,
       'nationality': instance.nationality,
       'height': instance.height,
-      'weight': instance.weight
+      'weight': instance.weight,
+      'currentTeam': instance.currentTeam
     };
 
 Teams _$TeamsFromJson(Map<String, dynamic> json) {
@@ -113,6 +117,13 @@ Teams _$TeamsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TeamsToJson(Teams instance) =>
     <String, dynamic>{'home': instance.home, 'away': instance.away};
+
+CurrentTeam _$CurrentTeamFromJson(Map<String, dynamic> json) {
+  return CurrentTeam(id: json['id'] as int, name: json['name'] as String);
+}
+
+Map<String, dynamic> _$CurrentTeamToJson(CurrentTeam instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};
 
 Team _$TeamFromJson(Map<String, dynamic> json) {
   return Team(

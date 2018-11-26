@@ -11,7 +11,9 @@ Future<List<Player>> fetchRosterById(String id) async {
   try {
     final response = await _http.get(API.baseUrl + API.getRosterPathFromId(id));
     parsed = (json.decode(response.body)['roster'] as List)
-        .map((dynamic p) => Player.fromJson(p));
+        .map((dynamic p) => Player.fromJson(p))
+        .toList();
+
   } catch (e) {
     print('Couldn\'t get players');
     print(e);
