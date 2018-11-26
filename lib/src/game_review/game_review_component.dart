@@ -35,8 +35,9 @@ class GameReviewComponent implements OnActivate {
   final GameReviewService gameReviewService;
   final SelfieService selfieService;  
   final Router _router;
+  final Location _location;
 
-  GameReviewComponent(this.gameReviewService, this.selfieService, this._router);
+  GameReviewComponent(this.gameReviewService, this.selfieService, this._location, this._router);
 
   /**
    * The id of the game we are adding this review to. Set this in onActivate, it will be used in 'submit' and 'delete'.
@@ -120,6 +121,8 @@ class GameReviewComponent implements OnActivate {
     rating = r;
     review.rating = r;
   }
+
+  void goBack() => _location.back();
 
   onGotSnapshot(GotSnapshotEvent event) async {
     selfieSnapshot = event;

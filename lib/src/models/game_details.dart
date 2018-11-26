@@ -351,6 +351,7 @@ class SkaterStats {
   int shortHandedAssists;
   int blocked;
   int plusMinus;
+  String timeOnIce;
   String evenTimeOnIce;
   String powerPlayTimeOnIce;
   String shortHandedTimeOnIce;
@@ -371,6 +372,7 @@ class SkaterStats {
     this.shortHandedAssists,
     this.blocked,
     this.plusMinus,
+    this.timeOnIce,
     this.evenTimeOnIce,
     this.powerPlayTimeOnIce,
     this.shortHandedTimeOnIce,

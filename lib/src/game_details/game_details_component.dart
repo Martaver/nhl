@@ -12,11 +12,15 @@ import 'package:nhl/src/services/game_review.service.dart';
 import 'package:nhl/src/services/game_details.service.dart';
 import 'package:nhl/src/services/team_roster.service.dart';
 import 'package:nhl/src/services/user_profile.service.dart';
+import 'package:random_string/random_string.dart';
+import 'package:nhl/src/api/API.dart';
+
 
 @Component(
   selector: 'game-detials',
   styleUrls: [
     'game_details_component.css',
+    'package:angular_components/css/mdc_web/card/mdc-card.scss.css',
     'package:angular_components/app_layout/layout.scss.css',
   ],
   templateUrl: 'game_details_component.html',
@@ -37,9 +41,7 @@ import 'package:nhl/src/services/user_profile.service.dart';
   ],
   pipes: [commonPipes],
 )
-
 class GameDetailsComponent implements OnActivate {
-
   final GameReviewService gameReviewService;
   final GameDetailsService gameDetailsService;
   final UserProfileService userProfileService;
@@ -48,18 +50,24 @@ class GameDetailsComponent implements OnActivate {
   final Location _location;
 
   GameDetailsComponent(
-      this.gameReviewService,
-      this.gameDetailsService,
-      this.userProfileService,
-      this.gameAttendanceService,
-      this.teamRosterService,
-      this._location,
-      );
+    this.gameReviewService,
+    this.gameDetailsService,
+    this.userProfileService,
+    this.gameAttendanceService,
+    this.teamRosterService,
+    this._location,
+      this._router,
+  );
 
   /**
    * Detailed game information
    */
   GameDetails.GameDetails details;
+
+  /**
+   * Router
+   */
+  Router _router;
 
   /**
    * A list of review for this game
@@ -70,6 +78,31 @@ class GameDetailsComponent implements OnActivate {
    * The ID number of the game that we would like to view.
    */
   String gameId;
+
+  /**
+   * The firebase ID of the user.
+   */
+  var userId;
+
+  /**
+   * If the user is going to the game
+   */
+  bool userGoing;
+
+  /**
+   * The list of attendees
+   */
+  List<GameAttendance> attendees;
+
+  /**
+   * The number of Atendees
+   */
+  int attendeeCount;
+
+  /**
+   * Is the game in the past? i.e has already happened
+   */
+  bool hasBeenPlayed;
 
   /**
    * A list of players on the home team.
@@ -87,6 +120,14 @@ class GameDetailsComponent implements OnActivate {
    */
   List<dynamic> awayRoster;
 
+
+  /**
+   * URLs to team SVG logo
+   */
+  String homeTeamLogoUrl;
+  String awayTeamLogoUrl;
+
+
   /**
    * Helper function for getting game details
    */
@@ -95,8 +136,30 @@ class GameDetailsComponent implements OnActivate {
   }
 
   /**
-   * Helper function for getting game reviews
+   * Mark user as attending game
    */
+  void markAttending() {
+    gameAttendanceService.markAttending(gameId, userId, new GameAttendance());
+    userGoing = true;
+  }
+
+  /**
+   * mark user as not attending game
+   */
+  void markNotAttending() {
+    gameAttendanceService.markNotAttending(gameId, userId);
+    userGoing = false;
+  }
+
+
+  Future<NavigationResult> leaveReview() {
+    String reviewId = randomAlphaNumeric(16);
+    return _router.navigate('game/${gameId}/review/${reviewId}');
+  }
+
+  /**
+     * Helper function for getting game reviews
+     */
   Future<void> _getReviewsForGame(String id) async {
     reviews = await gameReviewService.all(id);
   }
@@ -109,7 +172,6 @@ class GameDetailsComponent implements OnActivate {
    */
   void goBack() => _location.back();
 
-
   void onActivate(_, RouterState current) async {
     // get the game ID from the route
     gameId = current.parameters['gameid'];
@@ -117,54 +179,42 @@ class GameDetailsComponent implements OnActivate {
     // then fetch the detailed game data.
     await _getGameDetails(gameId);
 
+    homeTeamLogoUrl = API.getImageUrlFromTeamId(details.gameData.teams.home.id);
+    awayTeamLogoUrl = API.getImageUrlFromTeamId(details.gameData.teams.away.id);
+
     // pull reviews from firebase for this game (if there is any).
     _getReviewsForGame(gameId);
 
-    // if the game doesn't have player data
-    // then pull rosters from roster service and show those
-    print('player list');
-    print(details.gameData.players.playerList.length);
-
-    if (details.gameData.players.playerList.length == 0) {
+    if (details.liveData.boxscore.teams.away.players.playerList.length == 0) {
+      hasBeenPlayed = false;
       _getTeamRoster(details.gameData.teams.home.id)
           .then((List<Roster.Player> roster) {
-            homeRoster = roster;
-            print(homeRoster);
+        homeRoster = roster;
       });
 
       _getTeamRoster(details.gameData.teams.away.id)
           .then((List<Roster.Player> roster) {
-            awayRoster = roster;
-            print(awayRoster);
+        awayRoster = roster;
       });
-
     } else {
-      int homeTeam = details.gameData.teams.home.id;
-      homeRoster = details.gameData.players.playerList
-          .where((GameDetails.Player p) => p.currentTeam.id == homeTeam)
-          .toList();
-
-      int awayTeam = details.gameData.teams.away.id;
-      awayRoster = details.gameData.players.playerList
-          .where((GameDetails.Player p) => p.currentTeam.id == awayTeam)
-          .toList();
+      hasBeenPlayed = true;
+      homeRoster = details.liveData.boxscore.teams.home.players.playerList;
+      awayRoster = details.liveData.boxscore.teams.away.players.playerList;
     }
 
+    try {
+      userId = userProfileService.currentUserId;
+    } catch (e) {
+      _router.navigate('login');
+    }
 
-    // Testing/demonstrating attendance service here:
-    var userId = userProfileService.currentUserId;
-    
-    var attendance = new GameAttendance(message: "Yaye, I'm going, can't wait!!", supportingTeamId: 'myTeamId');
+    attendees = await gameAttendanceService.getAttendees(gameId);
+    attendeeCount = attendees.length;
 
-    await gameAttendanceService.markAttending(gameId, userId, attendance);
-
-    var count = await gameAttendanceService.getAttendeeCount(gameId);    
-    print(count);
-
-    var attendees = await gameAttendanceService.getAttendees(gameId);
-    print(attendees);
-    
-    await gameAttendanceService.markNotAttending(gameId, userId);
+    if (attendees.where((GameAttendance g) => g.userId == userId).length > 0) {
+      userGoing = true;
+    } else {
+      userGoing = false;
+    }
   }
-
 }

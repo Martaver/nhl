@@ -407,6 +407,7 @@ SkaterStats _$SkaterStatsFromJson(Map<String, dynamic> json) {
       shortHandedAssists: json['shortHandedAssists'] as int,
       blocked: json['blocked'] as int,
       plusMinus: json['plusMinus'] as int,
+      timeOnIce: json['timeOnIce'] as String,
       evenTimeOnIce: json['evenTimeOnIce'] as String,
       powerPlayTimeOnIce: json['powerPlayTimeOnIce'] as String,
       shortHandedTimeOnIce: json['shortHandedTimeOnIce'] as String);
@@ -429,6 +430,7 @@ Map<String, dynamic> _$SkaterStatsToJson(SkaterStats instance) =>
       'shortHandedAssists': instance.shortHandedAssists,
       'blocked': instance.blocked,
       'plusMinus': instance.plusMinus,
+      'timeOnIce': instance.timeOnIce,
       'evenTimeOnIce': instance.evenTimeOnIce,
       'powerPlayTimeOnIce': instance.powerPlayTimeOnIce,
       'shortHandedTimeOnIce': instance.shortHandedTimeOnIce

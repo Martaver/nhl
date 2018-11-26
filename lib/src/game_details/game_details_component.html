@@ -1,5 +1,4 @@
-<!--<router-outlet [routes]="Routes.all"></router-outlet>-->
-
+<link rel="stylesheet" href="game_details_component.css">
 <div class="material-content">
     <header class="material-header shadow">
         <div class="material-header-row">
@@ -14,11 +13,150 @@
             <span class="material-header-title">GAME DETAILS SCREEN</span>            
         </div>
     </header>
-    <div>
-            <div *ngFor="let review of reviews" >
-                {{review.message}}
-            </div>
+
+
+    <div class="image-row">
+        <img src="{{awayTeamLogoUrl}}" class="team-logo-image"/>
+        <img src="{{homeTeamLogoUrl}}" class="team-logo-image"/>
     </div>
+
+    <div *ngIf="details != null" class="title-and-score">
+        <h2 >{{details.gameData.teams.away.name}} @ {{details.gameData.teams.home.name}}</h2>
+        <h1 *ngIf="hasBeenPlayed">
+            {{details.liveData.boxscore.teams.away.teamStats.teamSkaterStats.goals}} - {{details.liveData.boxscore.teams.home.teamStats.teamSkaterStats.goals}}
+        </h1>
+    </div>
+
+
+    <div *ngIf="hasBeenPlayed != null && hasBeenPlayed">
+        <div style="text-align: center;">
+            <material-button raised (click)="leaveReview()" class="going-btn">Leave a review!</material-button>
+        </div>
+    </div>
+    <div *ngIf="userGoing != null && !hasBeenPlayed">
+        <div *ngIf="!userGoing" style="text-align: center;">
+            <material-button raised (click)="markAttending()" class="going-btn">I'm going!</material-button>
+        </div>
+
+        <div *ngIf="userGoing" style="text-align: center;">
+            <material-button raised (click)="markNotAttending()" class="not-going-btn">Actually maybe I won't go...</material-button>
+        </div>
+    </div>
+    <div *ngIf="hasBeenPlayed != null">
+    <div *ngIf="!hasBeenPlayed">
+        <div>
+            <div style="text-align: center;">
+                <h2>Seems like the game hasn't been played!</h2>
+                <h4>Lets look at the rosters...</h4>
+            </div>
+
+            <h2>{{details.gameData.teams.home.name}}</h2>
+            <table style="width: 100%">
+                <tr>
+                    <td>Name</td>
+                    <td>Position Code</td>
+                    <td>Position Name</td>
+                    <td>Position Type</td>
+                </tr>
+                <tr *ngFor="let player of homeRoster">
+                    <td>{{player.person?.fullName}}</td>
+                    <td>{{player.position?.code}}</td>
+                    <td>{{player.position?.name}}</td>
+                    <td>{{player.position?.type}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-top: 20px">
+            <h2>{{details.gameData.teams.away.name}}</h2>
+            <table style="width: 100%">
+                <tr>
+                    <td>Name</td>
+                    <td>Position Code</td>
+                    <td>Position Name</td>
+                    <td>Position Type</td>
+                </tr>
+                <tr *ngFor="let player of awayRoster">
+                    <td>{{player.person?.fullName}}</td>
+                    <td>{{player.position?.code}}</td>
+                    <td>{{player.position?.name}}</td>
+                    <td>{{player.position?.type}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="hasBeenPlayed">
+
+        <div>
+            <h2>{{details.gameData.teams.home.name}} team stats: </h2>
+            <table style="width: 100%;">
+                <tr>
+                    <td>Name</td>
+                    <td>Goals</td>
+                    <td>Assists</td>
+                    <td>Shots</td>
+                    <td>Hits</td>
+                    <td>TOI</td>
+                </tr>
+                <tr *ngFor="let player of homeRoster">
+                    <td>{{player.person.fullName}}</td>
+                    <td>{{player.stats.skaterStats?.goals}}</td>
+                    <td>{{player.stats.skaterStats?.assists}}</td>
+                    <td>{{player.stats.skaterStats?.shots}}</td>
+                    <td>{{player.stats.skaterStats?.hits}}</td>
+                    <td>{{player.stats.skaterStats?.timeOnIce}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-top: 20px">
+            <h2>{{details.gameData.teams.away.name}} team stats: </h2>
+            <table style="width: 100%;">
+                <tr>
+                    <td>Name</td>
+                    <td>Goals</td>
+                    <td>Assists</td>
+                    <td>Shots</td>
+                    <td>Hits</td>
+                    <td>TOI</td>
+                </tr>
+                <tr *ngFor="let player of awayRoster">
+                    <td>{{player.person.fullName}}</td>
+                    <td>{{player.stats.skaterStats?.goals}}</td>
+                    <td>{{player.stats.skaterStats?.assists}}</td>
+                    <td>{{player.stats.skaterStats?.shots}}</td>
+                    <td>{{player.stats.skaterStats?.hits}}</td>
+                    <td>{{player.stats.skaterStats?.timeOnIce}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+    <div *ngIf="reviews != null && reviews.length > 0" style="text-align: center;">
+        <h1>Reviews:</h1>
+
+        <div class="review-container">
+            <div class="mdc-card mdc-card__primary-action mdc-ripple-upgraded demo-size review-card"
+                 *ngFor="let review of reviews"
+            >
+                <div class="title-and-score">
+                    <div class="demo-card__primary">
+                        <h2 class="demo-card__title">{{review.message}}</h2>
+                        <div *ngIf="review.rating != null">
+                            <material-icon icon="{{review.rating < 1 ? 'star_border' : 'star'}}"></material-icon>
+                            <material-icon icon="{{review.rating < 2 ? 'star_border' : 'star'}}"></material-icon>
+                            <material-icon icon="{{review.rating < 3 ? 'star_border' : 'star'}}"></material-icon>
+                            <material-icon icon="{{review.rating < 4 ? 'star_border' : 'star'}}"></material-icon>
+                            <material-icon icon="{{review.rating < 5 ? 'star_border' : 'star'}}"></material-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
 </div>
 
 <!--<a [routerLink]="Routes.review.toUrl()">to review!</a>-->
