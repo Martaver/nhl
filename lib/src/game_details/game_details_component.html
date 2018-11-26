@@ -1,7 +1,13 @@
+<!--<router-outlet [routes]="Routes.all"></router-outlet>-->
+
 <div class="material-content">
     <header class="material-header shadow">
         <div class="material-header-row">
-            <material-button class="material-drawer-button" icon>
+            <material-button
+                    class="material-drawer-button"
+                    icon
+                    (click)="goBack()"
+            >
                 <material-icon icon="chevron_left"></material-icon>
             </material-button>
             <div class="material-spacer"></div>
@@ -17,7 +23,7 @@
     </div>
 </div>
 <div class="game-action">
-    <material-button class="full-width-action-button">Game action</material-button>
+    <material-button class="full-width-action-button" raised>Game action</material-button>
 </div>
 <div class="game-roster">
     <!--<mat-table class="roster mat-elevation-z8" [dataSource]="dataSource">-->
@@ -46,3 +52,10 @@
 
     <!--</mat-table>-->
 </div>
+    <div>
+            <div *ngFor="let review of reviews" >
+                {{review.message}}
+            </div>
+    </div>
+
+<!--<a [routerLink]="Routes.review.toUrl()">to review!</a>-->

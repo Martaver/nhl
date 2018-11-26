@@ -5,8 +5,8 @@ $ brew install dart
 1. Install webdev
 pub global activate webdev
 
-1. Export path (add this to .bashrc or something)
-export PATH=$PATH:~/.pub-cache/bin
+1. Export path (add this to .bashrc /etc/paths (mac) or something)
+~/.pub-cache/bin
 
 1. Run webdev
 webdev serve

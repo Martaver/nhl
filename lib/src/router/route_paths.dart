@@ -1,13 +1,12 @@
 import 'package:angular_router/angular_router.dart';
 
 const date = 'date';
-const gameId = 'gameId';
-const reviewId = 'reviewId';
+const gameid = 'gameid';
 
 class RoutePaths {
+  static final login = RoutePath(path: 'login');
   static final schedule = RoutePath(path: 'schedule/:$date');
-  static final review = RoutePath(path: 'review/:$reviewId');
-  static final details = RoutePath(path: 'game/:$gameId');
+  static final game = RoutePath(path: 'game/:$gameid');
 }
 
 String getDateFromMap(Map<String, String> params) {
