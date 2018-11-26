@@ -2,11 +2,14 @@ import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_router/angular_router.dart';
+import 'package:nhl/src/models/game_attendance.dart';
 import 'package:nhl/src/models/game_review.dart';
 import 'package:nhl/src/models/game_details.dart';
 import 'package:nhl/src/router/game/game_routes.dart';
+import 'package:nhl/src/services/game_attendance.service.dart';
 import 'package:nhl/src/services/game_review.service.dart';
 import 'package:nhl/src/services/game_details.service.dart';
+import 'package:nhl/src/services/user_profile.service.dart';
 
 @Component(
   selector: 'game-detials',
@@ -25,7 +28,9 @@ import 'package:nhl/src/services/game_details.service.dart';
   exports: [RoutePaths, Routes],
   providers: [
     ClassProvider(GameReviewService),
-    ClassProvider(GameDetailsService)
+    ClassProvider(GameDetailsService),
+    ClassProvider(UserProfileService),
+    ClassProvider(GameAttendanceService),
   ],
   pipes: [commonPipes],
 )
@@ -34,11 +39,15 @@ class GameDetailsComponent implements OnActivate {
 
   final GameReviewService gameReviewService;
   final GameDetailsService gameDetailsService;
+  final UserProfileService userProfileService;
+  final GameAttendanceService gameAttendanceService;
   final Location _location;
 
   GameDetailsComponent(
       this.gameReviewService,
       this.gameDetailsService,
+      this.userProfileService,
+      this.gameAttendanceService,
       this._location,
       );
 
@@ -85,7 +94,22 @@ class GameDetailsComponent implements OnActivate {
     _getGameDetails(gameId);
 
     // pull reviews from firebase for this game (if there is any).
-    _getReviewsForGame(gameId);
+    _getReviewsForGame(gameId);  
+
+    // Testing/demonstrating attendance service here:
+    var userId = userProfileService.currentUserId;
+    
+    var attendance = new GameAttendance(message: "Yaye, I'm going, can't wait!!", supportingTeamId: 'myTeamId');
+
+    await gameAttendanceService.markAttending(gameId, userId, attendance);
+
+    var count = await gameAttendanceService.getAttendeeCount(gameId);    
+    print(count);
+
+    var attendees = await gameAttendanceService.getAttendees(gameId);
+    print(attendees);
+    
+    await gameAttendanceService.markNotAttending(gameId, userId);
   }
 
 }
