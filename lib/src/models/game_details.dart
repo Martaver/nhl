@@ -76,6 +76,7 @@ class Player {
   String nationality;
   String height;
   int weight;
+  CurrentTeam currentTeam;
 
   Player({
     this.id,
@@ -90,7 +91,8 @@ class Player {
     this.birthCountry,
     this.nationality,
     this.height,
-    this.weight
+    this.weight,
+    this.currentTeam
   });
   factory Player.fromJson(Map<String, dynamic> json) => _$PlayerFromJson(json);
 }
@@ -102,6 +104,15 @@ class Teams {
 
   Teams({this.home, this.away});
   factory Teams.fromJson(Map<String, dynamic> json) => _$TeamsFromJson(json);
+}
+
+@JsonSerializable()
+class CurrentTeam {
+  int id;
+  String name;
+
+  CurrentTeam({this.id, this.name});
+  factory CurrentTeam.fromJson(Map<String, dynamic> json) => _$CurrentTeamFromJson(json);
 }
 
 @JsonSerializable(nullable: false)
@@ -310,8 +321,9 @@ class Person {
 class Position {
   String code;
   String name;
+  String type;
 
-  Position({ this.code, this.name });
+  Position({ this.code, this.name, this.type });
   factory Position.fromJson(Map<String, dynamic> json) => _$PositionFromJson(json);
 }
 
