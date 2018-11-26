@@ -12,10 +12,39 @@
 </div>
 
 <section>
+    <div>
+        <div *ngIf="!hasSelfie && !isGettingSelfie" (click)="getSelfie()" style="text-align: center;">
+            <material-button>Add selfie</material-button>
+        </div>
+        <div *ngIf="isGettingSelfie" style="text-align: center;">
+            <photo-booth (gotSnapshot)="onGotSnapshot($event)"></photo-booth>
+            <material-button (click)="takeSelfie()">
+                <material-icon icon="camera_alt"></material-icon>
+            </material-button>
+        </div>        
+        <div *ngIf="hasSelfie && !isGettingSelfie" style="position: relative;">
+            <img [src]="selfieSnapshot.dataUrl" width="100%" />
+            <div (click)="clearSelfie()" style="position: absolute; top: 16px; right: 16px;">
+                <material-icon size="large" icon="close"></material-icon> 
+            </div>
+            <div *ngIf="confirming" style="text-align: center;">
+                <material-button (click)="getSelfie()">
+                    <material-icon icon="thumb_down"></material-icon>
+                </material-button>
+                <material-button (click)="confirmSelfie()">
+                        <material-icon icon="thumb_up"></material-icon>
+                </material-button>
+            </div>
+        </div>       
+    </div>
     <material-input
+            style="width: 100%"
             multiline
             rows="3"
             type="text"
+            placeholder="Write your review"
     >
     </material-input>
+    <material-progress *ngIf="submitting" [indeterminate]="submitting"></material-progress>
+    <material-button (click)="submit()">Submit</material-button> 
 </section>

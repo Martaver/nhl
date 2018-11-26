@@ -20,10 +20,11 @@ class GameReviewService {
   /**
    * Adds a new review to a game, returning the review's new id.
    */
-  Future add(String gameId, GameReview gameReview) {
+  Future<String> add(String gameId, GameReview gameReview) async {
     
     var json = gameReview.toJson();
-    return ReviewsFor(gameId).add(json);
+    var doc = await ReviewsFor(gameId).add(json);
+    return doc.id;
   }
 
   /**

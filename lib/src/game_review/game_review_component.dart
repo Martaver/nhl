@@ -2,9 +2,13 @@ import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input_multiline.dart';
+import 'package:angular_components/material_progress/material_progress.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:nhl/src/models/game_review.dart';
+import 'package:nhl/src/photo_booth/photo_booth_component.dart';
 import 'package:nhl/src/services/game_review.service.dart';
+import 'package:nhl/src/services/selfie.service.dart';
+
 
 
 @Component(
@@ -20,16 +24,19 @@ import 'package:nhl/src/services/game_review.service.dart';
     MaterialButtonComponent,
     MaterialIconComponent,
     MaterialMultilineInputComponent,
+    MaterialProgressComponent,
+    PhotoBoothComponent
   ],
-  providers: [const ClassProvider(GameReviewService)],
+  providers: [const ClassProvider(GameReviewService), const ClassProvider(SelfieService)],
 )
 
 class GameReviewComponent implements OnActivate {
-  
+
   final GameReviewService gameReviewService;
+  final SelfieService selfieService;  
   final Router _router;
 
-  GameReviewComponent(this.gameReviewService, this._router);
+  GameReviewComponent(this.gameReviewService, this.selfieService, this._router);
 
   /**
    * The id of the game we are adding this review to. Set this in onActivate, it will be used in 'submit' and 'delete'.
@@ -47,6 +54,14 @@ class GameReviewComponent implements OnActivate {
    */
   GameReview review = new GameReview();
 
+  @ViewChild(PhotoBoothComponent) PhotoBoothComponent photoBooth;
+  
+  GotSnapshotEvent selfieSnapshot;
+
+  bool isGettingSelfie = false;  
+  bool hasSelfie = false;
+  bool confirming = false;
+  bool submitting = false;
 
   void onActivate(_, RouterState current) async {
     // get the game ID from the route
@@ -59,8 +74,13 @@ class GameReviewComponent implements OnActivate {
    * Navigate back to game details view
    */
   Future<NavigationResult> submit() async {
-    await this.gameReviewService.add(this.gameId, this.review);
-    return _router.navigate('$gameId/details');
+    submitting = true;
+    var reviewId = await this.gameReviewService.add(this.gameId, this.review);
+    if(selfieSnapshot != null) {
+      await this.selfieService.save(reviewId, selfieSnapshot.blob).future;
+    }
+    submitting = false;
+    return _router.navigate('$gameId/details');    
   }
 
   /**
@@ -70,6 +90,32 @@ class GameReviewComponent implements OnActivate {
     // Remove the game from firebase.    
     await this.gameReviewService.remove(this.gameId, this.gameId);
     // Push route back to game.
+  }
+
+  void getSelfie() {
+    isGettingSelfie = true;
+    confirming = false;
+  }
+
+  void takeSelfie() {
+    photoBooth.snapshot();
+  }
+
+  void clearSelfie() {
+    hasSelfie = false;
+    selfieSnapshot = null;
+    confirming = false;
+  }
+
+  void confirmSelfie() {
+    confirming = false;
+  }
+
+  onGotSnapshot(GotSnapshotEvent event) async {
+    selfieSnapshot = event;
+    isGettingSelfie = false;    
+    hasSelfie = true;
+    confirming = true;
   }
 
 }
