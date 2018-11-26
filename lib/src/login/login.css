@@ -1,0 +1,10 @@
+.nhl-logo-wrapper {
+    text-align: center;
+}
+
+img.nhl-logo {
+    width: 80%;
+    margin-top: 16px;
+    max-width: 360px;
+}
+
