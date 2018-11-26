@@ -149,6 +149,7 @@ class GameDetailsComponent implements OnActivate {
    */
   void markAttending() {
     gameAttendanceService.markAttending(gameId, userId, new GameAttendance());
+    attendeeCount++;
     userGoing = true;
   }
 
@@ -157,6 +158,7 @@ class GameDetailsComponent implements OnActivate {
    */
   void markNotAttending() {
     gameAttendanceService.markNotAttending(gameId, userId);
+    attendeeCount--;
     userGoing = false;
   }
 
