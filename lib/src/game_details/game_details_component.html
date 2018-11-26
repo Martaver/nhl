@@ -25,11 +25,11 @@
             {{details.liveData.boxscore.teams.away.teamStats.teamSkaterStats.goals}} - {{details.liveData.boxscore.teams.home.teamStats.teamSkaterStats.goals}}
         </h1>
 
-        <h3 *ngIf="hasBeenPlayed && attendeeCount != null">
+        <h3 *ngIf="hasBeenPlayed && attendeeCount != null && attendeeCount > 0">
             {{attendeeCount == 1 ? attendeeCount.toString() + ' person watched this game!' : attendeeCount.toString() + ' people watched this game!'}}
         </h3>
 
-        <h3 *ngIf="!hasBeenPlayed && attendeeCount != null">
+        <h3 *ngIf="!hasBeenPlayed && attendeeCount != null && attendeeCount > 0">
             {{attendeeCount == 1 ? attendeeCount.toString() + ' person will watch this game!' : attendeeCount.toString() + ' people are going to watch this game!'}}
         </h3>
     </div>
