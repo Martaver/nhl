@@ -5,17 +5,16 @@ import 'package:angular/core.dart';
 import 'package:firebase/firebase.dart' as fb;
 import 'package:firebase/firestore.dart';
 import 'package:nhl/src/models/game_review.dart';
+import 'package:nhl/src/services/constants.dart';
 import 'package:rxdart/rxdart.dart';
 
-const String COLLECTION_GAME = "game";
 
-const String COLLECTION_REVIEW = "review";
 
 /// Mock service emulating access to a to-do list stored on a server.
 @Injectable()
 class GameReviewService {
 
-  CollectionReference ReviewsFor(String gameId) => fb.firestore().collection(COLLECTION_GAME).doc(gameId).collection(COLLECTION_REVIEW);
+  CollectionReference ReviewsFor(String gameId) => fb.firestore().collection(COLLECTION_GAME).doc(gameId).collection(COLLECTION_GAME_REVIEW);
 
   /**
    * Adds a new review to a game, returning the review's new id.
