@@ -14,8 +14,8 @@ import 'package:nhl/src/services/selfie.service.dart';
 @Component(
   selector: 'game-review',
   styleUrls: [
-    'game_review_component.css',
     'package:angular_components/app_layout/layout.scss.css',
+    'game_review_component.css',
   ],
   templateUrl: 'game_review_component.html',
   directives: [
@@ -62,6 +62,7 @@ class GameReviewComponent implements OnActivate {
   bool hasSelfie = false;
   bool confirming = false;
   bool submitting = false;
+  int rating = 0;
 
   void onActivate(_, RouterState current) async {
     // get the game ID from the route
@@ -80,7 +81,7 @@ class GameReviewComponent implements OnActivate {
       await this.selfieService.save(reviewId, selfieSnapshot.blob).future;
     }
     submitting = false;
-    return _router.navigate('$gameId/details');    
+    return _router.navigate('game/$gameId/details');
   }
 
   /**
@@ -109,6 +110,15 @@ class GameReviewComponent implements OnActivate {
 
   void confirmSelfie() {
     confirming = false;
+  }
+
+  void onReviewChange(String text) {
+    review.message = text;
+  }
+
+  void setRating(int r) {
+    rating = r;
+    review.rating = r;
   }
 
   onGotSnapshot(GotSnapshotEvent event) async {

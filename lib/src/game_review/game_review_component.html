@@ -14,7 +14,7 @@
 <section>
     <div>
         <div *ngIf="!hasSelfie && !isGettingSelfie" (click)="getSelfie()" style="text-align: center;">
-            <material-button>Add selfie</material-button>
+            <material-button raised class="selfie-btn">Add a selfie!</material-button>
         </div>
         <div *ngIf="isGettingSelfie" style="text-align: center;">
             <photo-booth (gotSnapshot)="onGotSnapshot($event)"></photo-booth>
@@ -37,14 +37,37 @@
             </div>
         </div>       
     </div>
-    <material-input
-            style="width: 100%"
-            multiline
-            rows="3"
-            type="text"
-            placeholder="Write your review"
-    >
-    </material-input>
+    <div style="text-align: center;">
+        <material-input
+                style="width: 80%"
+                multiline
+                rows="3"
+                type="text"
+                (change)="onReviewChange($event)"
+                hintText="Write your review here!"
+        >
+        </material-input>
+    </div>
+    <h2 class="experience-title">How would you rate your experience?</h2>
+    <div class="rating-row">
+        <material-button (trigger)="setRating(1)" icon class="rating-star">
+            <material-icon icon="{{rating < 1 ? 'star_border' : 'star'}}"></material-icon>
+        </material-button>
+        <material-button (trigger)="setRating(2)" icon>
+            <material-icon icon="{{rating < 2 ? 'star_border' : 'star'}}"></material-icon>
+        </material-button>
+        <material-button (trigger)="setRating(3)" icon>
+            <material-icon icon="{{rating < 3 ? 'star_border' : 'star'}}"></material-icon>
+        </material-button>
+        <material-button (trigger)="setRating(4)" icon>
+            <material-icon icon="{{rating < 4 ? 'star_border' : 'star'}}"></material-icon>
+        </material-button>
+        <material-button (trigger)="setRating(5)" icon>
+            <material-icon icon="{{rating < 5 ? 'star_border' : 'star'}}"></material-icon>
+        </material-button>
+    </div>
     <material-progress *ngIf="submitting" [indeterminate]="submitting"></material-progress>
-    <material-button (click)="submit()">Submit</material-button> 
+    <div style="text-align: center;">
+        <material-button raised (click)="submit()" class="submit-btn">Submit</material-button>
+    </div>
 </section>
