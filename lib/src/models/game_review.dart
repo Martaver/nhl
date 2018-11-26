@@ -11,8 +11,10 @@ class GameReview {
   // List fields required here, and add them to constructor too.
   String message;
   int rating;
+  bool hasSelfie;
 
-  GameReview({this.id, this.message, this.rating});
+
+  GameReview({this.id, this.message, this.rating, this.hasSelfie});
 
 
   // The following are serializers for the object. JSON serialization is auto-generated.
