@@ -13,12 +13,14 @@ import 'package:nhl/src/services/game_details.service.dart';
 import 'package:nhl/src/services/team_roster.service.dart';
 import 'package:nhl/src/services/user_profile.service.dart';
 import 'package:random_string/random_string.dart';
+import 'package:nhl/src/api/API.dart';
 
 
 @Component(
   selector: 'game-detials',
   styleUrls: [
     'game_details_component.css',
+    'package:angular_components/css/mdc_web/card/mdc-card.scss.css',
     'package:angular_components/app_layout/layout.scss.css',
   ],
   templateUrl: 'game_details_component.html',
@@ -118,6 +120,14 @@ class GameDetailsComponent implements OnActivate {
    */
   List<dynamic> awayRoster;
 
+
+  /**
+   * URLs to team SVG logo
+   */
+  String homeTeamLogoUrl;
+  String awayTeamLogoUrl;
+
+
   /**
    * Helper function for getting game details
    */
@@ -168,6 +178,9 @@ class GameDetailsComponent implements OnActivate {
 
     // then fetch the detailed game data.
     await _getGameDetails(gameId);
+
+    homeTeamLogoUrl = API.getImageUrlFromTeamId(details.gameData.teams.home.id);
+    awayTeamLogoUrl = API.getImageUrlFromTeamId(details.gameData.teams.away.id);
 
     // pull reviews from firebase for this game (if there is any).
     _getReviewsForGame(gameId);

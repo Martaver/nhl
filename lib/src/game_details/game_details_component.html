@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="game_details_component.css">
 <div class="material-content">
     <header class="material-header shadow">
         <div class="material-header-row">
@@ -12,6 +13,20 @@
             <span class="material-header-title">GAME DETAILS SCREEN</span>            
         </div>
     </header>
+
+
+    <div class="image-row">
+        <img src="{{awayTeamLogoUrl}}" class="team-logo-image"/>
+        <img src="{{homeTeamLogoUrl}}" class="team-logo-image"/>
+    </div>
+
+    <div *ngIf="details != null" class="title-and-score">
+        <h2 >{{details.gameData.teams.away.name}} @ {{details.gameData.teams.home.name}}</h2>
+        <h1 *ngIf="hasBeenPlayed">
+            {{details.liveData.boxscore.teams.away.teamStats.teamSkaterStats.goals}} - {{details.liveData.boxscore.teams.home.teamStats.teamSkaterStats.goals}}
+        </h1>
+    </div>
+
 
     <div *ngIf="hasBeenPlayed != null && hasBeenPlayed">
         <div style="text-align: center;">
@@ -117,11 +132,31 @@
         </div>
     </div>
     </div>
-    <div>
-            <div *ngFor="let review of reviews" >
-                {{review.message}}
+    <div *ngIf="reviews != null && reviews.length > 0" style="text-align: center;">
+        <h1>Reviews:</h1>
+
+        <div class="review-container">
+            <div class="mdc-card mdc-card__primary-action mdc-ripple-upgraded demo-size review-card"
+                 *ngFor="let review of reviews"
+            >
+                <div class="title-and-score">
+                    <div class="demo-card__primary">
+                        <h2 class="demo-card__title">{{review.message}}</h2>
+                        <div *ngIf="review.rating != null">
+                            <material-icon icon="{{review.rating < 1 ? 'star_border' : 'star'}}"></material-icon>
+                            <material-icon icon="{{review.rating < 2 ? 'star_border' : 'star'}}"></material-icon>
+                            <material-icon icon="{{review.rating < 3 ? 'star_border' : 'star'}}"></material-icon>
+                            <material-icon icon="{{review.rating < 4 ? 'star_border' : 'star'}}"></material-icon>
+                            <material-icon icon="{{review.rating < 5 ? 'star_border' : 'star'}}"></material-icon>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+
     </div>
+
+
 </div>
 
 <!--<a [routerLink]="Routes.review.toUrl()">to review!</a>-->
