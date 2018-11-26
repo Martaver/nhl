@@ -360,8 +360,12 @@
 
   body {
       padding-top: 64px;
+      background-color: #ECECEC;
   }
 
+  .material-header {
+      background-color: #3E3E3E !important;
+  }
 
   .fixed-header {
     position: fixed !important;
@@ -371,4 +375,19 @@
     z-index: 1 !important;
     max-height: 64px !important;
     min-height: 64px !important;
+}
+
+material-button {
+    background-color: #3E3E3E !important;
+    color: #fefefe !important;
+}
+
+.button-column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.material-content {
+    padding: 16px;
 }

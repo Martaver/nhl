@@ -1,5 +1,5 @@
-<div class="fixed-header material-content">
-  <header class="material-header shadow">
+<div class="material-content">
+  <header class="fixed-header material-header shadow">
     <div class="material-header-row">
       <material-button
               class="material-drawer-button"
@@ -19,8 +19,8 @@
       </material-button>
     </div>
   </header>
-</div>
 
-<div class="game-card-container">
-  <game-card *ngFor="let game of games" [game]="game"></game-card>
+  <div class="game-card-container">
+      <game-card *ngFor="let game of games" [game]="game"></game-card>
+    </div>
 </div>

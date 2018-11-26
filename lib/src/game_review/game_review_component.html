@@ -9,65 +9,66 @@
                         
         </div>
     </header>
+
+    <section>
+            <div>
+                <div *ngIf="!hasSelfie && !isGettingSelfie" (click)="getSelfie()" style="text-align: center;">
+                    <material-button raised class="selfie-btn">Add a selfie!</material-button>
+                </div>
+                <div *ngIf="isGettingSelfie" style="text-align: center;">
+                    <photo-booth (gotSnapshot)="onGotSnapshot($event)"></photo-booth>
+                    <material-button (click)="takeSelfie()">
+                        <material-icon icon="camera_alt"></material-icon>
+                    </material-button>
+                </div>        
+                <div *ngIf="hasSelfie && !isGettingSelfie" style="position: relative;">
+                    <img [src]="selfieSnapshot.dataUrl" width="100%" />
+                    <div (click)="clearSelfie()" style="position: absolute; top: 16px; right: 16px;">
+                        <material-icon size="large" icon="close"></material-icon> 
+                    </div>
+                    <div *ngIf="confirming" style="text-align: center;">
+                        <material-button (click)="getSelfie()">
+                            <material-icon icon="thumb_down"></material-icon>
+                        </material-button>
+                        <material-button (click)="confirmSelfie()">
+                                <material-icon icon="thumb_up"></material-icon>
+                        </material-button>
+                    </div>
+                </div>       
+            </div>
+            <div style="text-align: center;">
+                <material-input
+                        style="width: 80%"
+                        multiline
+                        rows="3"
+                        type="text"
+                        (change)="onReviewChange($event)"
+                        hintText="Write your review here!"
+                >
+                </material-input>
+            </div>
+            <h2 class="experience-title">How would you rate your experience?</h2>
+            <div class="rating-row">
+                <material-button (trigger)="setRating(1)" icon class="rating-star">
+                    <material-icon icon="{{rating < 1 ? 'star_border' : 'star'}}"></material-icon>
+                </material-button>
+                <material-button (trigger)="setRating(2)" icon>
+                    <material-icon icon="{{rating < 2 ? 'star_border' : 'star'}}"></material-icon>
+                </material-button>
+                <material-button (trigger)="setRating(3)" icon>
+                    <material-icon icon="{{rating < 3 ? 'star_border' : 'star'}}"></material-icon>
+                </material-button>
+                <material-button (trigger)="setRating(4)" icon>
+                    <material-icon icon="{{rating < 4 ? 'star_border' : 'star'}}"></material-icon>
+                </material-button>
+                <material-button (trigger)="setRating(5)" icon>
+                    <material-icon icon="{{rating < 5 ? 'star_border' : 'star'}}"></material-icon>
+                </material-button>
+            </div>
+            <material-progress *ngIf="submitting" [indeterminate]="submitting"></material-progress>
+            <div style="text-align: center;">
+                <material-button raised (click)="submit()" class="submit-btn">Submit</material-button>
+            </div>
+        </section>
 </div>
 
-<section>
-    <div>
-        <div *ngIf="!hasSelfie && !isGettingSelfie" (click)="getSelfie()" style="text-align: center;">
-            <material-button raised class="selfie-btn">Add a selfie!</material-button>
-        </div>
-        <div *ngIf="isGettingSelfie" style="text-align: center;">
-            <photo-booth (gotSnapshot)="onGotSnapshot($event)"></photo-booth>
-            <material-button (click)="takeSelfie()">
-                <material-icon icon="camera_alt"></material-icon>
-            </material-button>
-        </div>        
-        <div *ngIf="hasSelfie && !isGettingSelfie" style="position: relative;">
-            <img [src]="selfieSnapshot.dataUrl" width="100%" />
-            <div (click)="clearSelfie()" style="position: absolute; top: 16px; right: 16px;">
-                <material-icon size="large" icon="close"></material-icon> 
-            </div>
-            <div *ngIf="confirming" style="text-align: center;">
-                <material-button (click)="getSelfie()">
-                    <material-icon icon="thumb_down"></material-icon>
-                </material-button>
-                <material-button (click)="confirmSelfie()">
-                        <material-icon icon="thumb_up"></material-icon>
-                </material-button>
-            </div>
-        </div>       
-    </div>
-    <div style="text-align: center;">
-        <material-input
-                style="width: 80%"
-                multiline
-                rows="3"
-                type="text"
-                (change)="onReviewChange($event)"
-                hintText="Write your review here!"
-        >
-        </material-input>
-    </div>
-    <h2 class="experience-title">How would you rate your experience?</h2>
-    <div class="rating-row">
-        <material-button (trigger)="setRating(1)" icon class="rating-star">
-            <material-icon icon="{{rating < 1 ? 'star_border' : 'star'}}"></material-icon>
-        </material-button>
-        <material-button (trigger)="setRating(2)" icon>
-            <material-icon icon="{{rating < 2 ? 'star_border' : 'star'}}"></material-icon>
-        </material-button>
-        <material-button (trigger)="setRating(3)" icon>
-            <material-icon icon="{{rating < 3 ? 'star_border' : 'star'}}"></material-icon>
-        </material-button>
-        <material-button (trigger)="setRating(4)" icon>
-            <material-icon icon="{{rating < 4 ? 'star_border' : 'star'}}"></material-icon>
-        </material-button>
-        <material-button (trigger)="setRating(5)" icon>
-            <material-icon icon="{{rating < 5 ? 'star_border' : 'star'}}"></material-icon>
-        </material-button>
-    </div>
-    <material-progress *ngIf="submitting" [indeterminate]="submitting"></material-progress>
-    <div style="text-align: center;">
-        <material-button raised (click)="submit()" class="submit-btn">Submit</material-button>
-    </div>
-</section>
