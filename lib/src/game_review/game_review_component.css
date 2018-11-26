@@ -3,3 +3,22 @@
     text-align: center;
 }
 
+.experience-title {
+    text-align: center;
+    width: 100%;
+}
+
+.selfie-btn {
+    width: 80%;
+    font-size: 24px;
+    margin: 20px 0 !important;
+    padding: 10px !important;
+}
+
+.submit-btn {
+    width: 80%;
+    font-size: 24px;
+    margin: 20px 0 !important;
+    padding: 10px !important;
+}
+
