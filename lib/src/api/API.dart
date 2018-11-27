@@ -1,5 +1,5 @@
 class API {
-  static final String baseUrl = "http://statsapi.web.nhl.com/api/v1";
+  static final String baseUrl = "https://statsapi.web.nhl.com/api/v1";
   static final String schedule = "/schedule";
   static String getGamePathFromId (String gameId) => "/game/$gameId/feed/live";
   static String getRosterPathFromId (String rosterId) => "/teams/$rosterId/roster";
